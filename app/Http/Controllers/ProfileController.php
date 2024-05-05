@@ -24,12 +24,12 @@ class ProfileController extends Controller
     public function index()
     {
         // $user = User::find($id);
-        $address = Address::find(auth()->id());
+        // $address = Address::find();
 
         $user = User::find(auth()->id());
         $user->fullName = $user->first_name . ' ' . $user->last_name;
-        $address->alamat = $address->city . ',' . $address->province . ' ' . $address->district . ' ' . $address->sub_district;
-        return view('pages.users-profile' , ['user' => $user , 'address' => $address]);
+        // $address->alamat = $address->city . ',' . $address->province . ' ' . $address->district . ' ' . $address->sub_district;
+        return view('pages.users-profile' , ['user' => $user]);
     
     }
 

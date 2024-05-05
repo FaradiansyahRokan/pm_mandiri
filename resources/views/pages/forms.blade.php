@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Forms / Elements - NiceAdmin Bootstrap Template</title>
+    <title>Forms - Peti Ngemil</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -23,6 +23,8 @@
     <link href="{{ url('assets/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ url('assets/css/style.css') }}" rel="stylesheet">
     <link href="{{ url('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
+    <link href="{{ url('assets/vendor/quill/quill.snow.css')}}" rel="stylesheet">
+    <link href="{{ url('assets/vendor/quill/quill.bubble.css')}}" rel="stylesheet">
 </head>
 
 <body>
@@ -171,9 +173,22 @@
                                 <div class="row mb-3">
                                     <label for="inputPassword" class="col-sm-2 col-form-label">Description</label>
                                     <div class="col-sm-10">
-                                        <textarea id="description_product" class="form-control @error('description_product') is-invalid @enderror"
-                                            style="height: 100px" name="description_product" value="{{ old('description_product') }}" required
-                                            autocomplete="description_product"></textarea>
+                                        {{-- <div class="card">
+                                            <div class="card-body">
+                                              <h5 class="card-title">Quill Editor Default</h5>
+                                
+                                              <!-- Quill Editor Default -->
+                                              <div class="quill-editor-default">
+                                                <p>Hello World!</p>
+                                                <p>This is Quill <strong>default</strong> editor</p>
+                                              </div>
+                                              <!-- End Quill Editor Default -->
+                                
+                                            </div>
+                                          </div> --}}
+                                          <textarea id="description_product" class="form-control @error('description_product') is-invalid @enderror"
+                                              style="height: 100px" name="description_product" value="{{ old('description_product') }}" required
+                                              autocomplete="description_product"></textarea>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -274,6 +289,7 @@
 
     <!-- Template Main JS File -->
     <script src="{{ url('assets/js/main.js') }}"></script>
+    <script src="{{ url('assets/vendor/quill/quill.js')}}"></script>
 
 </body>
 

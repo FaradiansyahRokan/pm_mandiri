@@ -75,7 +75,7 @@
   
               <div class="row">
                 <div class="col-lg-3 col-md-4 label">Country</div>
-                <div class="col-lg-9 col-md-8">USA</div>
+                <div class="col-lg-9 col-md-8">INDONESIA</div>
               </div>
 
               <div class="row">

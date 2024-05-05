@@ -17,6 +17,6 @@ class CategoryFlavour extends Model
     ];
 
     public function productFlavour(): BelongsTo {
-        return $this->belongsTo(Product::class, 'id_category_flavour', 'id');
+        return $this->belongsTo(Product::class, 'id_category_flavour', 'list_flavour');
     }
 }

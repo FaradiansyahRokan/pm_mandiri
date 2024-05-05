@@ -27,7 +27,7 @@ class ProductRequest extends FormRequest
             'description_product' => 'required',
             'price' => 'required|integer',
             'qty' => 'required|integer',
-            'files.*' => 'required|image',
+            'files.*' => 'required|image|mimes:jpeg,png,jpg,giv,svg|max:2048',
             'id_category_size' => 'required',
             'id_category_menu' => 'required',
             'id_category_flavour' => 'required',

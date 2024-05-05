@@ -17,7 +17,7 @@ class FrontendController extends Controller
      */
     public function index()
     {
-        $products = Product::with(['gallery'])->latest()->get();
+        $products = Product::with(['image_product'])->latest()->get();
 
         return view('', compact('products'));
     }
