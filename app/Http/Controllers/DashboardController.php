@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductRequest;
+use App\Models\CategoryFlavour;
+use App\Models\CategoryMenu;
+use App\Models\CategorySize;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -14,9 +17,25 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $data = Product::all();
-        $cat = $data->categoryFlavour()->get();
-        return view('admin.admin', [ 'data' => $data, 'cat' => $cat]);
+        // $data = Product::get();
+        // $cat_flavs = $data->categoryFlavour()->get();
+        // return view('admin.admin', [ 'data' => $data, 'cat' => $cat_flavs]);
+
+
+         $products = Product::all();
+
+         $categoryFlavours = CategoryFlavour::whereIn('id', $products->pluck('id_category_flavour'))->get();
+         $categorySizes = CategorySize::whereIn('id', $products->pluck('id_category_size'))->get();
+         $categoryMenus = CategoryMenu::whereIn('id', $products->pluck('id_category_menu'))->get();
+         
+         return view('admin.admin', [
+             'data' => [
+                 'products' => $products,
+                 'categoryFlavours' => $categoryFlavours,
+                 'categorySizes' => $categorySizes,
+                 'categoryMenus' => $categoryMenus,
+             ]
+         ]);
     }
 
     /**
@@ -40,7 +59,8 @@ class DashboardController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $showData =  Product::findOrfail($id);
+        return view('pages.show' , compact('showData'));
     }
 
     /**
@@ -84,8 +104,9 @@ class DashboardController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Product $product, $id)
     {
-        //
+        $product->findOrFail($id)->delete();
+        return redirect()->route('dashboard');
     }
 }

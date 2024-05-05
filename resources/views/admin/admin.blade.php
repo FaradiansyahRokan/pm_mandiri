@@ -25,23 +25,55 @@
               <th>Category</th>
               <th>Rasa</th>
               <th>Ukuran</th>
-              <th>Harga</th>
               <th>Jumlah</th>
+              <th>Detail</th>
           </tr>
       </thead>
-      <tbody>
+      {{-- <tbody>
           @foreach($data as $product)
-          @foreach ($cat as $cats)
           <tr>
-            <td>{{ $cats->productFlavour->list_flavour }}</td>
+            <td>{{ $categoryFlavour->list_flavour }}</td>
             <td>{{ $product->id_category_menu }}</td>
             <td>{{ $product->id_category_size }}</td>
             <td>{{ $product->price }}</td>
             <td>{{ $product->qty }}</td>
         </tr>
               
-          @endforeach
-          @endforeach
+          @endforeach --}}
+
+          <tbody>
+            @foreach($data['products'] as $product)
+            <tr>
+                {{-- Tampilkan nama kategori rasa dari produk saat ini --}}
+                <td>
+                  {{-- Mencari kategori menu yang sesuai berdasarkan ID kategori menu produk --}}
+                  @php
+                      $categoryMenu = $data['categoryMenus']->where('id', $product->id_category_menu)->first();
+                  @endphp
+                  {{ $categoryMenu->list_menu ?? '' }}
+                </td>
+                <td>
+                    {{-- Mencari kategori rasa yang sesuai berdasarkan ID kategori rasa produk --}}
+                    @php
+                        $categoryFlavour = $data['categoryFlavours']->where('id', $product->id_category_flavour)->first();
+                    @endphp
+                    {{ $categoryFlavour->list_flavour ?? '' }}
+                </td>
+              
+              <td>
+                  {{-- Mencari kategori ukuran yang sesuai berdasarkan ID kategori ukuran produk --}}
+                  @php
+                      $categorySize = $data['categorySizes']->where('id', $product->id_category_size)->first();
+                  @endphp
+                  {{ $categorySize->list_size ?? '' }}
+              </td>
+                {{-- <td>{{ $product->price }}</td> --}}
+                <td>{{ $product->qty }}</td>
+                <td><a href="{{ route('show-product' , $product->id)}}" class="btn btn-primary">LIHAT PRODUK</a></td>
+            </tr>
+            @endforeach
+        </tbody>
+    
       </tbody>
       </table>
       <!-- End Table with stripped rows -->

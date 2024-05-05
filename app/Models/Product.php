@@ -16,9 +16,9 @@ class Product extends Model
         'name_product', 'description_product', 'price', 'qty', 'image_product', 'id_category_flavour', 'id_category_size', 'id_category_menu'
     ];
 
-    public function categoryFlavour(): HasOne
+    public function categoryFlavour(): HasMany
     {
-        return $this->hasOne(CategoryFlavour::class, 'id_category_flavour', 'id');
+        return $this->hasMany(CategoryFlavour::class, 'id_category_flavour', 'id');
     }
     public function categoryMenu(): HasOne
     {

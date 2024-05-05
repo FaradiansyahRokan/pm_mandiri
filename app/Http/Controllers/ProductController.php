@@ -47,27 +47,27 @@ class ProductController extends Controller
             'id_category_flavour' => $request->input('id_category_flavour'),
             'id_category_size' => $request->input('id_category_size'),
             'id_category_menu' => $request->input('id_category_menu'),
-            'image_product' => $request->file('image_product')->store('public'),
+            // 'image_product' => $request->file('image_product')->store('public/gallery'),
         ];
 
-        Product::create($dataProduct);
-
+        
         // dd($request);
-    
-            // $dataProduct = new Product();
-    
-            // $dataProduct->name = $request->name;
-            // $dataProduct->category = $request->category;
-            // $dataProduct->price = $request->price;
-            // $dataProduct->qty = $request->qty;
-            // $dataProduct->description = $request->description;
-    
-            // if ($request->hasFile('image')){
-            //     $image = $request->file('image');
-            //     $imageName = time() . '.' . $image->getClientOriginalExtension();
-            //     $image->storeAs('public/products' , $imageName);
-            //     $dataProduct->image = $imageName;
-            // }
+        
+        // $dataProduct = new Product();
+        
+        // $dataProduct->name = $request->name;
+        // $dataProduct->category = $request->category;
+        // $dataProduct->price = $request->price;
+        // $dataProduct->qty = $request->qty;
+        // $dataProduct->description = $request->description;
+        
+        if ($request->hasFile('image_product')){
+            // $image = $request->file('image');
+            $imageName = time() . '.' . $request->file('image_product')->getClientOriginalExtension();
+            $request->file('image_product')->storeAs('public/gallery' , $imageName);
+            $dataProduct['image_product'] = "storage/gallery/" .$imageName; 
+        }
+        Product::create($dataProduct);
     
             // $dataProduct->save();
             //  Product::create($dataProduct);

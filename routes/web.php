@@ -31,5 +31,7 @@ Route::middleware([AdminMiddleware::class])->group(function(){
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard/create' , [ProductController::class , 'create'])->name('product');
     Route::post('/dashboard/create' , [ProductController::class , 'store'])->name('product-store');
+    Route::get('/dashboard/show/{id}' , [DashboardController::class , 'show'])->name('show-product');
+    Route::delete('/dashboard/show/{id}' , [DashboardController::class , 'destroy'])->name('delete');
   // اضف المنتجات             
 });

@@ -17,9 +17,11 @@ class FrontendController extends Controller
      */
     public function index()
     {
-        $products = Product::with(['image_product'])->latest()->get();
+        // $products = Product::with(['image_product'])->latest()->get();
 
-        return view('', compact('products'));
+        // return view('', compact('products'));
+
+        return view('pages.detail');
     }
 
     public function cartAdd(Request $request, $id) {

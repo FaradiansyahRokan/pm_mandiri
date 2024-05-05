@@ -162,121 +162,18 @@
 
 <div class="container">
 <div class="row mt-4">
-  
+  @foreach ($products as $product)
+      
+  @endforeach
 <div class="col-lg-3 col-md-3 col-sm-4 col-6 mt-3">
   <a href="{{ route('detail')}}" class="list">
   <div class="card text-center" style="background-color: #DBD3CD">
     <div class="img__product">
-    <img src="{{ url('images/content 5.png')}}" class="card-img-top" data-bs-toggle="offcanvas" data-bs-target="#xlmk" aria-controls="offcanvasBottom"  alt="...">
+      <img class="card-img-top" src="{{ asset($product->image_product) }}" alt="Product Image">
   </div>
     <div class="card-body">
-      <h6 class="card-title">XLMK Tour LS</h6>
-      <p class="card-text mt-2">Rp. 199.000</p>
-
-    </div>
-  </div>
-</a>
-</div>
-
-<div class="col-lg-3 col-md-3 col-sm-4 col-6 mt-3">
-  <a href="{{ route('detail')}}" class="list">
-  <div class="card text-center" style="background-color: #DBD3CD">
-    <div class="img__product">
-    <img src="{{ url('images/content 5.png')}}" class="card-img-top" data-bs-toggle="offcanvas" data-bs-target="#xlmk" aria-controls="offcanvasBottom"  alt="...">
-  </div>
-    <div class="card-body">
-      <h6 class="card-title">XLMK Tour LS</h6>
-      <p class="card-text mt-2">Rp. 199.000</p>
-
-    </div>
-  </div>
-</a>
-</div>
-
-<div class="col-lg-3 col-md-3 col-sm-4 col-6 mt-3">
-  <a href="{{ route('detail')}}" class="list">
-  <div class="card text-center" style="background-color: #DBD3CD">
-    <div class="img__product">
-    <img src="{{ url('images/content 5.png')}}" class="card-img-top" data-bs-toggle="offcanvas" data-bs-target="#xlmk" aria-controls="offcanvasBottom"  alt="...">
-  </div>
-    <div class="card-body">
-      <h6 class="card-title">XLMK Tour LS</h6>
-      <p class="card-text mt-2">Rp. 199.000</p>
-
-    </div>
-  </div>
-</a>
-</div>
-
-<div class="col-lg-3 col-md-3 col-sm-4 col-6 mt-3">
-  <a href="{{ route('detail')}}" class="list"> 
-  <div class="card text-center" style="background-color: #DBD3CD">
-    <div class="img__product">
-    <img src="{{ url('images/content 5.png')}}" class="card-img-top" data-bs-toggle="offcanvas" data-bs-target="#xlmk" aria-controls="offcanvasBottom"  alt="...">
-  </div>
-    <div class="card-body">
-      <h6 class="card-title">XLMK Tour LS</h6>
-      <p class="card-text mt-2">Rp. 199.000</p>
-
-    </div>
-  </div>
-</a>
-</div>
-
-<div class="col-lg-3 col-md-3 col-sm-4 col-6 mt-3">
-  <a href="{{ route('detail')}}" class="list">
-  <div class="card text-center" style="background-color: #DBD3CD">
-    <div class="img__product">
-    <img src="{{ url('images/content 5.png')}}" class="card-img-top" data-bs-toggle="offcanvas" data-bs-target="#xlmk" aria-controls="offcanvasBottom"  alt="...">
-  </div>
-    <div class="card-body">
-      <h6 class="card-title">XLMK Tour LS</h6>
-      <p class="card-text mt-2">Rp. 199.000</p>
-
-    </div>
-  </div>
-</a>
-</div>
-
-<div class="col-lg-3 col-md-3 col-sm-4 col-6 mt-3">
-  <a href="{{ route('detail')}}" class="list">
-  <div class="card text-center" style="background-color: #DBD3CD">
-    <div class="img__product">
-    <img src="{{ url('images/content 5.png')}}" class="card-img-top" data-bs-toggle="offcanvas" data-bs-target="#xlmk" aria-controls="offcanvasBottom"  alt="...">
-  </div>
-    <div class="card-body">
-      <h6 class="card-title">XLMK Tour LS</h6>
-      <p class="card-text mt-2">Rp. 199.000</p>
-
-    </div>
-  </div>
-</a>
-</div>
-
-<div class="col-lg-3 col-md-3 col-sm-4 col-6 mt-3">
-  <a href="{{ route('detail')}}" class="list">
-  <div class="card text-center" style="background-color: #DBD3CD">
-    <div class="img__product">
-    <img src="{{ url('images/content 5.png')}}" class="card-img-top" data-bs-toggle="offcanvas" data-bs-target="#xlmk" aria-controls="offcanvasBottom"  alt="...">
-  </div>
-    <div class="card-body">
-      <h6 class="card-title">XLMK Tour LS</h6>
-      <p class="card-text mt-2">Rp. 199.000</p>
-
-    </div>
-  </div>
-</a>
-</div>
-
-<div class="col-lg-3 col-md-3 col-sm-4 col-6 mt-3">
-  <a href="{{ route('detail')}}" class="list">
-  <div class="card text-center" style="background-color: #DBD3CD">
-    <div class="img__product">
-    <img src="{{ url('images/content 5.png')}}" class="card-img-top" data-bs-toggle="offcanvas" data-bs-target="#xlmk" aria-controls="offcanvasBottom"  alt="...">
-  </div>
-    <div class="card-body">
-      <h6 class="card-title">XLMK Tour LS</h6>
-      <p class="card-text mt-2">Rp. 199.000</p>
+      <h5 class="card-title fw-bold fs-5">{{ $product->name_product }}</h5>
+      <p class="card-text mt-2 fs-5">Rp. {{  number_format($product->price, 0, ',', '.')}}</p>
 
     </div>
   </div>
