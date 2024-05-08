@@ -29,17 +29,6 @@
               <th>Detail</th>
           </tr>
       </thead>
-      {{-- <tbody>
-          @foreach($data as $product)
-          <tr>
-            <td>{{ $categoryFlavour->list_flavour }}</td>
-            <td>{{ $product->id_category_menu }}</td>
-            <td>{{ $product->id_category_size }}</td>
-            <td>{{ $product->price }}</td>
-            <td>{{ $product->qty }}</td>
-        </tr>
-              
-          @endforeach --}}
 
           <tbody>
             @foreach($data['products'] as $product)

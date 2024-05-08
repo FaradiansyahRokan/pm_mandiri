@@ -46,8 +46,9 @@
               <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item"> 
               <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
+              <a href="{{route('edit-profile', $address->id)}}"></a>
             </li>
 
             <li class="nav-item">
@@ -75,12 +76,12 @@
   
               <div class="row">
                 <div class="col-lg-3 col-md-4 label">Country</div>
-                <div class="col-lg-9 col-md-8">INDONESIA</div>
+                <div class="col-lg-9 col-md-8">USA</div>
               </div>
 
               <div class="row">
                 <div class="col-lg-3 col-md-4 label">Address</div>
-                <div class="col-lg-9 col-md-8">{{ $user->city}}</div>
+                <div class="col-lg-9 col-md-8">{{ $address->city }}, {{ $address->province }}, {{ $address->district }}, {{ $address->sub_district }}, {{ $address->detail }}, {{ $address->address_type }}</div>
               </div>
 
 
@@ -99,7 +100,7 @@
             <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
               <!-- Profile Edit Form -->
-              <form action="{{ route('profile.update')}}" method="POST">
+              <form action="{{ route('profile.update', $user->id)}}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="row mb-3">
@@ -114,9 +115,16 @@
                 </div>
 
                 <div class="row mb-3">
-                  <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
+                  <label for="first_name" class="col-md-4 col-lg-3 col-form-label">First Name</label>
                   <div class="col-md-8 col-lg-9">
-                    <input name="fullName" type="text" class="form-control" id="fullName" value="{{ $user->fullName}}">
+                    <input name="first_name" type="text" class="form-control" id="first_name" value="{{ $user->first_name}}">
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <label for="last_name" class="col-md-4 col-lg-3 col-form-label">Last Name</label>
+                  <div class="col-md-8 col-lg-9">
+                    <input name="last_name" type="text" class="form-control" id="last_name" value="{{ $user->last_name}}">
                   </div>
                 </div>
 
@@ -128,65 +136,67 @@
                 </div>
 
                 <div class="row mb-3">
-                  <label for="City" class="col-md-4 col-lg-3 col-form-label">City</label>
+                  <label for="phone_number" class="col-md-4 col-lg-3 col-form-label">Phone Number</label>
                   <div class="col-md-8 col-lg-9">
-                    <input name="city" type="text" class="form-control" id="City" value="">
+                    <input name="phone_number" type="text" class="form-control" id="phone_number" value="{{ $user->phone_number }}">
                   </div>
                 </div>
 
                 <div class="row mb-3">
-                  <label for="Province" class="col-md-4 col-lg-3 col-form-label">Province</label>
+                  <label for="city" class="col-md-4 col-lg-3 col-form-label">City</label>
                   <div class="col-md-8 col-lg-9">
-                    <input name="province" type="text" class="form-control" id="Province" value="">
+                    <input name="city" type="text" class="form-control" id="city" value="{{ $address->city }}">
                   </div>
                 </div>
 
                 <div class="row mb-3">
-                  <label for="District" class="col-md-4 col-lg-3 col-form-label">District</label>
+                  <label for="province" class="col-md-4 col-lg-3 col-form-label">Province</label>
                   <div class="col-md-8 col-lg-9">
-                    <input name="district" type="text" class="form-control" id="District" value="">
+                    <input name="province" type="text" class="form-control" id="province" value="{{ $address->province }}">
                   </div>
                 </div>
 
                 <div class="row mb-3">
-                  <label for="SubDistrict" class="col-md-4 col-lg-3 col-form-label">Sub District</label>
+                  <label for="district" class="col-md-4 col-lg-3 col-form-label">District</label>
                   <div class="col-md-8 col-lg-9">
-                    <input name="sub-district" type="text" class="form-control" id="SubDistrict" value="">
+                    <input name="district" type="text" class="form-control" id="district" value="{{ $address->district }}">
                   </div>
                 </div>
 
                 <div class="row mb-3">
-                  <label for="Detail" class="col-md-4 col-lg-3 col-form-label">Detail</label>
+                  <label for="sub-district" class="col-md-4 col-lg-3 col-form-label">Sub District</label>
                   <div class="col-md-8 col-lg-9">
-                    <input name="detail" type="text" class="form-control" id="Detail" value="">
+                      <input name="sub-district" type="text" class="form-control" id="sub-district" value="{{ $address->sub_district }}">
                   </div>
                 </div>
 
                 <div class="row mb-3">
-                  <label for="AddressType" class="col-md-4 col-lg-3 col-form-label">Address Type</label>
+                  <label for="detail" class="col-md-4 col-lg-3 col-form-label">Detail</label>
                   <div class="col-md-8 col-lg-9">
-                    <input name="addressType" type="text" class="form-control" id="AddressType" value="">
+                    <input name="detail" type="text" class="form-control" id="detail" value="{{ $address->detail }}">
+                  </div>
+                </div>
+
+                {{-- @dd($user) --}}
+
+                <div class="row mb-3">
+                  <label for="address_type" class="col-md-4 col-lg-3 col-form-label">Address Type</label>
+                  <div class="col-md-8 col-lg-9">
+                    <input name="address_type" type="text" class="form-control" id="address_type" value="{{ $address->address_type }}">
                   </div>
                 </div>
 
                 <div class="row mb-3">
-                  <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
+                  <label for="email" class="col-md-4 col-lg-3 col-form-label">Email</label>
                   <div class="col-md-8 col-lg-9">
-                    <input name="phone" type="text" class="form-control" id="Phone" value="">
-                  </div>
-                </div>
-
-                <div class="row mb-3">
-                  <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
-                  <div class="col-md-8 col-lg-9">
-                    <input name="email" type="email" class="form-control" id="Email" value="{{ $user->email}}">
+                    <input name="email" type="email" class="form-control" id="email" value="{{ $user->email}}">
                   </div>
                 </div>
 
                 <div class="text-center">
                   <button type="submit" class="btn btn-primary">Save Changes</button>
                 </div>
-                <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                {{-- <input type="hidden" name="_token" value="{{ csrf_token() }}" /> --}}
               </form><!-- End Profile Edit Form -->
 
             </div>

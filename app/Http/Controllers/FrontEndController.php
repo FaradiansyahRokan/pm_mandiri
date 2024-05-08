@@ -15,13 +15,10 @@ class FrontendController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function showDetail($id)
     {
-        // $products = Product::with(['image_product'])->latest()->get();
-
-        // return view('', compact('products'));
-
-        return view('pages.detail');
+        $products = Product::findOrFail($id);
+        return view('pages.detail' , compact('products'));
     }
 
     public function cartAdd(Request $request, $id) {

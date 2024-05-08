@@ -1,52 +1,49 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="luar">
-        <div class="main product d-flex">
-            <div class="product-image">
-                <img src="{{ url('images/cabe2.png')}}" alt="" width="950">
-            </div>
-            <aside class="d-flex align-items-center">
-            <div class="product-aside row-2" style="max-width:800px">
-            <div class="product-text">
-                <h1 class="product-title fw-bold">PISANG LERR</h1>
-                <div class="product-desc">
-                    <h3 class="mt-4 fs-3">This wild mountain tea, known as Sideritis is very popular in Greece.The most common English name other than Mountain Tea is "Shepherd's Tea," because Greek shepherds would use the plants to make a brewed tea while tending their flocks high in the hills.</h3>
-                    <h1 class="product-price fw-bold mt-5" style="font-size: 50px">RP.180,000</h1>
-                </div>
-            </div>
-            <div class="product-select mt-5">
-                <div class="row">
-                    <div class="col-sm-5 my-2">
-                        <div class="card"  style="background-color: #515151">
-                            <a href="#" class="btn btn-lg btn-block text-light fw-bold" style="background-color: #515151">Buy Now</a>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-5 my-2">
-                        <div class="card"  style="background-color: #DBD3CD; outline: none">
-                            <a class="btn btn-lg btn-block text-dark fw-bold shadow p-2 bg-body-tertiary rounded"  style="background-color: #DBD3CD" style="outline: none"  data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">+ Add to cart</a>
-                        </div>
-                    </div>
-
-
-
-                    <div class="col-sm-5 my-2">
-                        <div class="card"  style="background-color: #515151">
-                            <a href="#" class="btn btn-lg btn-block text-light fw-bold"  style="background-color: #515151">Buy Now</a>
-                        </div>
+<div class="luar">
+  <div class="main product d-flex align-items-center justify-content-evenly">
+      <div class="product-image">
+          <img src="{{ asset($products->image_product) }}" alt="" width="500">
+      </div>
+      <aside class="d-flex align-items-center">
+          <div class="product-aside" style="max-width: 800px;">
+              <div class="product-text">
+                  <h1 class="product-title fw-bold">{{ $products->name_product }}</h1>
+                  <div class="product-desc">
+                      <h3 class="mt-4 fs-3">{{ $products->description_product }}</h3>
+                      <h1 class="product-price fw-bold mt-5" style="font-size: 50px;">RP {{ number_format($products->price, 0, ',', '.') }}</h1>
+                  </div>
+              </div>
+              <div class="product-select mt-5">
+                  <div class="row">
+                      <div class="col-md-6 my-2">
+                          <div class="card">
+                              <a href="#" class="btn btn-lg btn-block text-light fw-bold" style="background-color: #515151;">Buy Now</a>
+                          </div>
                       </div>
-
-                      <div class="col-sm-5 my-2"> 
-                        <div class="card"  style="background-color: #515151">
-                            <a href="#" class="btn btn-lg btn-block text-light fw-bold"  style="background-color: #515151">Buy Now</a>
-                        </div>
+                      <div class="col-md-6 my-2">
+                          <div class="card">
+                              <a class="btn btn-lg btn-block text-dark fw-bold shadow p-2 bg-body-tertiary rounded" style="background-color: #DBD3CD;" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">+ Add to cart</a>
+                          </div>
+                      </div>
+                      <div class="col-md-6 my-2">
+                          <div class="card">
+                              <a href="#" class="btn btn-lg btn-block text-light fw-bold" style="background-color: #515151;">Buy Now</a>
+                          </div>
+                      </div>
+                      <div class="col-md-6 my-2">
+                          <div class="card">
+                              <a href="#" class="btn btn-lg btn-block text-light fw-bold" style="background-color: #515151;">Buy Now</a>
+                          </div>
                       </div>
                   </div>
-            </div>
-        </div>
-    </aside>
-        </div>
+              </div>
+          </div>
+      </aside>
+  </div>
+</div>
+
 
         <div class="offcanvas offcanvas-end"  style="width: 30%"  tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
             <div class="offcanvas-header">
@@ -223,7 +220,7 @@
 <div class="row mt-4">
   
 <div class="col-lg-3 col-md-3 col-sm-4 col-6 mt-3">
-  <a href="{{ route('detail')}}" class="list">
+  <a href="{{ route('detail', $products->id)}}" class="list">
   <div class="card text-center" style="background-color: #DBD3CD">
     <div class="img__product">
     <img src="{{ url('images/content 5.png')}}" class="card-img-top" data-bs-toggle="offcanvas" data-bs-target="#xlmk" aria-controls="offcanvasBottom"  alt="...">
@@ -238,7 +235,7 @@
 </div>
 
 <div class="col-lg-3 col-md-3 col-sm-4 col-6 mt-3">
-  <a href="{{ route('detail')}}" class="list">
+  <a href="{{ route('detail', $products->id)}}" class="list">
   <div class="card text-center" style="background-color: #DBD3CD">
     <div class="img__product">
     <img src="{{ url('images/content 5.png')}}" class="card-img-top" data-bs-toggle="offcanvas" data-bs-target="#xlmk" aria-controls="offcanvasBottom"  alt="...">
@@ -253,7 +250,7 @@
 </div>
 
 <div class="col-lg-3 col-md-3 col-sm-4 col-6 mt-3">
-  <a href="{{ route('detail')}}" class="list">
+  <a href="{{ route('detail', $products->id)}}" class="list">
   <div class="card text-center" style="background-color: #DBD3CD">
     <div class="img__product">
     <img src="{{ url('images/content 5.png')}}" class="card-img-top" data-bs-toggle="offcanvas" data-bs-target="#xlmk" aria-controls="offcanvasBottom"  alt="...">
@@ -268,7 +265,7 @@
 </div>
 
 <div class="col-lg-3 col-md-3 col-sm-4 col-6 mt-3">
-  <a href="{{ route('detail')}}" class="list"> 
+  <a href="{{ route('detail', $products->id)}}" class="list"> 
   <div class="card text-center" style="background-color: #DBD3CD">
     <div class="img__product">
     <img src="{{ url('images/content 5.png')}}" class="card-img-top" data-bs-toggle="offcanvas" data-bs-target="#xlmk" aria-controls="offcanvasBottom"  alt="...">
@@ -283,7 +280,7 @@
 </div>
 
 <div class="col-lg-3 col-md-3 col-sm-4 col-6 mt-3">
-  <a href="{{ route('detail')}}" class="list">
+  <a href="{{ route('detail', $products->id)}}" class="list">
   <div class="card text-center" style="background-color: #DBD3CD">
     <div class="img__product">
     <img src="{{ url('images/content 5.png')}}" class="card-img-top" data-bs-toggle="offcanvas" data-bs-target="#xlmk" aria-controls="offcanvasBottom"  alt="...">
@@ -298,7 +295,7 @@
 </div>
 
 <div class="col-lg-3 col-md-3 col-sm-4 col-6 mt-3">
-  <a href="{{ route('detail')}}" class="list">
+  <a href="{{ route('detail', $products->id)}}" class="list">
   <div class="card text-center" style="background-color: #DBD3CD">
     <div class="img__product">
     <img src="{{ url('images/content 5.png')}}" class="card-img-top" data-bs-toggle="offcanvas" data-bs-target="#xlmk" aria-controls="offcanvasBottom"  alt="...">
@@ -313,7 +310,7 @@
 </div>
 
 <div class="col-lg-3 col-md-3 col-sm-4 col-6 mt-3">
-  <a href="{{ route('detail')}}" class="list">
+  <a href="{{ route('detail', $products->id)}}" class="list">
   <div class="card text-center" style="background-color: #DBD3CD">
     <div class="img__product">
     <img src="{{ url('images/content 5.png')}}" class="card-img-top" data-bs-toggle="offcanvas" data-bs-target="#xlmk" aria-controls="offcanvasBottom"  alt="...">
@@ -328,10 +325,10 @@
 </div>
 
 <div class="col-lg-3 col-md-3 col-sm-4 col-6 mt-3">
-  <a href="{{ route('detail')}}" class="list">
+  <a href="{{ route('detail', $products->id)}}" class="list">
   <div class="card text-center" style="background-color: #DBD3CD">
     <div class="img__product">
-    <img src="{{ url('images/content 5.png')}}" class="card-img-top" data-bs-toggle="offcanvas" data-bs-target="#xlmk" aria-controls="offcanvasBottom"  alt="...">
+    <img src="{{ $products->image_product}}" class="card-img-top" data-bs-toggle="offcanvas" data-bs-target="#xlmk" aria-controls="offcanvasBottom"  alt="...">
   </div>
     <div class="card-body">
       <h6 class="card-title">XLMK Tour LS</h6>

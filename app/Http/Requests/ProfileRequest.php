@@ -12,7 +12,7 @@ class ProfileRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Auth::check();  
+        return true;  
     }
 
     /**
@@ -23,9 +23,15 @@ class ProfileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name' => 'required',
-            'email' =>'email|unique|required',
-            'phone_number' => 'integer|max:15' 
+            'first_name' => 'required|max:125',
+            'city' => 'required|string',
+            'province' => 'required|string',
+            'district' => 'required|string',
+            'sub-district' => 'required|string',
+            'address_type' => 'required',
+            'detail' => 'max:1000|required',
+            'phone_number' => 'integer|max:15|required',
+            'email' => 'email|required'
         ];
     }
 }

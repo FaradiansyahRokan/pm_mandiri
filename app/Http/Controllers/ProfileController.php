@@ -6,6 +6,7 @@ use App\Http\Requests\AddressRequest;
 use App\Http\Requests\ProfileRequest;
 use App\Models\Address;
 use App\Models\User;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -28,8 +29,14 @@ class ProfileController extends Controller
 
         $user = User::find(auth()->id());
         $user->fullName = $user->first_name . ' ' . $user->last_name;
+
+        $address = Address::where('id_user', $user->id)->first();
+        
         // $address->alamat = $address->city . ',' . $address->province . ' ' . $address->district . ' ' . $address->sub_district;
-        return view('pages.users-profile' , ['user' => $user]);
+        return view('pages.users-profile', [
+            'user' => $user,
+            'address' => $address
+        ]);
     
     }
 
@@ -38,39 +45,15 @@ class ProfileController extends Controller
      */
     public function create()
     {
+        // 
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(ProfileRequest $profile_request, AddressRequest $address_request,  $id)
+    public function store(ProfileRequest $profile_request,  $id)
     {
-        $user = User::find($id);
-        $address = Address::where('user_id', $id)->first();
-
-        if (!$address) {
-            $address = new Address();
-            $address->user_id = $id;
-        }
-
-        $validated1 = $profile_request->validated();
-        $validated2 = $address_request->validated();
-
-        $user->last_name = $validated1['last_name'];
-        $user->phone_number = $validated1['phone_number'];
-        $user->gender = $validated1['gender'];
-        $user->birth_date = $validated1['birth_date'];
-        $user->save();
-
-        $address->city = $validated2['city'];
-        $address->province = $validated2['province'];
-        $address->district = $validated2['district'];
-        $address->sub_district = $validated2['sub-district'];
-        $address->detail = $validated2['detail'];
-        $address->address_type = $validated2['address_type'];
-        $address->save();
-
-        return redirect();
+        // 
     }
 
     /**
@@ -87,62 +70,73 @@ class ProfileController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        $user = User::find($id);
-        $address = Address::where('user_id', $id)->first();
+        $user = User::find(auth()->id());
+        $user->fullName = $user->first_name . ' ' . $user->last_name;
+        
+        $address = Address::where('id_user', $user->id)->first();
 
-        return view();
+        return view('', [
+            'dataEdit' => [
+                'user' => $user,
+                'address' => $address
+            ]
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(ProfileRequest $profile_request, AddressRequest $address_request,  $id)
+    public function update(ProfileRequest $profile_request,  $id)
     {
+
+        dd($profile_request);
+
         $user = User::find($id);
-        $address = Address::find($id);
+        $address = Address::where('id_user', $id)->first();
 
         if ($user && $address) {
-            $validated1 = $profile_request->validated();
-            $validated2 = $address_request->validated();
+            $validated = $profile_request->validated();
 
-            if (!empty($validated1['password'])) {
+            if (!empty($validated['password'])) {
                 $user->update([
-                    'first_name' => $validated1['first_name'],
-                    'last_name' => $validated1['last_name'],
-                    'phone_number' => $validated1['phone_number'],
-                    'gender' => $validated1['gender'],
-                    'password' => bcrypt($validated1['password']),
-                    'birth_date' => $validated1['birth_date'],
+                    'first_name' => $validated['first_name'],
+                    'last_name' => $validated['last_name'],
+                    'phone_number' => $validated['phone_number'],
+                    'gender' => $validated['gender'],
+                    'email' => $validated['email'],
+                    // 'password' => bcrypt($validated['password']),
+                    'birth_date' => $validated['birth_date'],
                 ]);
             } else {
                 $user->update([
-                    'first_name' => $validated1['first_name'],
-                    'last_name' => $validated1['last_name'],
-                    'phone_number' => $validated1['phone_number'],
-                    'gender' => $validated1['gender'],
-                    'birth_date' => $validated1['birth_date'],
+                    'first_name' => $validated['first_name'],
+                    'last_name' => $validated['last_name'],
+                    'phone_number' => $validated['phone_number'],
+                    'gender' => $validated['gender'],
+                    'email' => $validated['email'],
+                    'birth_date' => $validated['birth_date'],
                 ]);
             }
 
             $address->update([
-                'city' => $validated2['city'],
-                'province' => $validated2['province'],
-                'district' => $validated2['district'],
-                'sub-district' => $validated2['sub-district'],
-                'detail' => $validated2['detail'],
-                'address_type' => $validated2['address_type'],
+                'city' => $validated['city'],
+                'province' => $validated['province'],
+                'district' => $validated['district'],
+                'sub_district' => $validated['sub_district'],
+                'detail' => $validated['detail'],
+                'address_type' => $validated['address_type'],
             ]);
 
-            if ($profile_request->hasFile('image_profile')) {
+            if ($validated->hasFile('image_profile')) {
                 Storage::delete($user->image_profile);
                 $user->update([
-                    'image_profile' => $profile_request->file('image_profile')->store('image_profile'),
+                    'image_profile' => $validated->file('image_profile')->store('image_profile'),
                 ]);
             }
 
-            return redirect()->route('nama_rute');
+            return redirect()->route('profile');
         }
     }
 

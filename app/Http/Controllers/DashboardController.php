@@ -66,9 +66,14 @@ class DashboardController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        $dataEdit = Product::findOrFail($id);
+        $data_flavours = CategoryFlavour::all();
+        $data_menus = CategoryMenu::all();
+        $data_sizes = CategorySize::all();
+
+        return view('pages.edit', compact(['dataEdit', 'data_flavours', 'data_menus', 'data_sizes']));
     }
 
     /**
@@ -90,10 +95,11 @@ class DashboardController extends Controller
             'id_category_menu' => $validatedData['id_category_menu'],
         ]);
 
-        if ($request->hasFile('image_product')) {
-            Storage::delete($product->image_product);
-            $product->image_product = $request->file('image_product')->store('public');
-            $product->save();
+        if ($request->hasFile('image_product')){
+            // $image = $request->file('image');
+            $imageName = time() . '.' . $request->file('image_product')->getClientOriginalExtension();
+            $request->file('image_product')->storeAs('public/gallery' , $imageName);
+            $dataProduct['image_product'] = "storage/gallery/" .$imageName; 
         }
 
         // dd($request);

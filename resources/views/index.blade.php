@@ -23,10 +23,10 @@
 
 
 <div id="carouselExample" class="carousel slide">
-    <div class="carousel-inner">
+    <div class="carousel-inner" style="height: 800px">
       <div class="carousel-item active">
         <div class="main container-fluid">
-    <div class="container d-flex flex-row">
+    <div class="container d-flex flex-row justify-content-evenly">
     <div class="tex-content  d-flex align-items-top">
         <div class="pp">
             <h5>MAKARONI</h5>
@@ -36,14 +36,14 @@
     </div>
 
     <div class="image">
-        <img src="{{ url('images/cabe1.png')}}" alt="">
+        <img src="{{ url('images/cabe1.png')}}" alt="" class="img_car">
     </div>
 </div>
 </div>
       </div>
       <div class="carousel-item">
         <div class="main container-fluid">
-    <div class="container d-flex flex-row ">
+    <div class="container d-flex flex-row justify-content-evenly">
     <div class="tex-content  d-flex align-items-top">
         <div class="pp">
             <h5>USUS KRISPI</h5>
@@ -53,14 +53,14 @@
     </div>
 
     <div class="image">
-        <img src="{{ url('images/cabe2.png')}}" alt="">
+        <img src="{{ url('images/cabe2.png')}}" alt="" class="img_car">
     </div>
 </div>
 </div>
       </div>
       <div class="carousel-item">
         <div class="main container-fluid">
-    <div class="container d-flex flex-row">
+    <div class="container d-flex flex-row justify-content-evenly">
     <div class="tex-content  d-flex align-items-top">
         <div class="pp">
             <h5>BASRENG</h5>
@@ -69,14 +69,14 @@
         </div>
     </div>
     <div class="image">
-        <img src="{{ url('images/cabe3.png')}}" alt="">
+        <img src="{{ url('images/cabe3.png')}}" alt="" class="img_car">
     </div>
 </div>
 </div>
       </div>
       <div class="carousel-item">
         <div class="main container-fluid">
-    <div class="container d-flex flex-row">
+    <div class="container d-flex flex-row justify-content-evenly">
     <div class="tex-content  d-flex align-items-top">
         <div class="pp">
             <h5>KRIPIK PISANG</h5>
@@ -85,14 +85,14 @@
         </div>
     </div>
     <div class="image">
-        <img src="{{ url('images/coklat.png')}}" alt="">
+        <img src="{{ url('images/coklat.png')}}" alt="" class="img_car">
     </div>
 </div>
 </div>
       </div>
       <div class="carousel-item">
         <div class="main container-fluid">
-    <div class="container d-flex flex-row">
+    <div class="container d-flex flex-row justify-content-evenly">
     <div class="tex-content  d-flex align-items-top">
         <div class="pp">
             <h5>KRIPIK PISANG</h5>
@@ -101,14 +101,14 @@
         </div>
     </div>
     <div class="image">
-        <img src="{{ url('images/strawberry.png')}}" alt="">
+        <img src="{{ url('images/strawberry.png')}}" alt="" class="img_car">
     </div>
 </div>
 </div>
       </div>
       <div class="carousel-item">
         <div class="main container-fluid">
-    <div class="container d-flex flex-row">
+    <div class="container d-flex flex-row justify-content-evenly">
     <div class="tex-content  d-flex align-items-top">
         <div class="pp">
             <h5>KRIPIK PISANG</h5>
@@ -117,7 +117,7 @@
         </div>
     </div>
     <div class="image">
-        <img src="{{ url('images/tiramisusu.png')}}" alt="" class="tiramisu">
+        <img src="{{ url('images/tiramisusu.png')}}" alt="" class="img_car">
     </div>
 </div>
 </div>
@@ -132,53 +132,60 @@
       <span class="visually-hidden">Next</span>
     </button>
   </div>
-
   
- <div class="product_card container px-5" style="position: relative;">
-<div class="product-landing">
-<div class="content d-flex justify-content-between">
-    <div class="content-text p-5">
-        <h5>PRODUCT</h5>
-        <h1>Kripik</h1>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium voluptates repellendus necessitatibus maxime quis ullam, porro omnis ad eveniet nulla illo nostrum nemo delectus facere a officia neque dolores eum.</p>
+  <div class="container px-5">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="product-landing">
+                <div class="content-text p-5">
+                    <h5>PRODUCT</h5>
+                    <h1>Kripik</h1>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium voluptates repellendus necessitatibus maxime quis ullam, porro omnis ad eveniet nulla illo nostrum nemo delectus facere a officia neque dolores eum.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="content-image d-flex justify-content-center align-items-center">
+                <img src="{{ url('images/product-img.png')}}" alt="" class="img-fluid">
+            </div>
+        </div>
     </div>
-    <div class="content-image d-flex" style="position: absolute; right: 0; top: 50%; transform: translateY(-50%);">
-        <img src="{{ url('images/product-img.png')}}" alt="" width="600px"> 
-    </div>
-</div>
-</div>
 </div>
 
-<div class="container d-flex justify-content-center" style="margin-top: 100px">
-<div class="product_list">
-<div class="content_title text-center">
-    <h2>Product</h2>
-    <p style="max-width: 350px">
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. At, quasi voluptas ipsum corporis,.
-    </p>
-</div>
-</div>
+<div class="container-fluid bg-light">
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div class="product_list text-center">
+                    <div class="content_title">
+                        <h2>Product</h2>
+                        <p class="mt-3">Lorem, ipsum dolor sit amet consectetur adipisicing elit. At, quasi voluptas ipsum corporis.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="container">
 <div class="row mt-4">
   @foreach ($products as $product)
       
+  <div class="col-lg-3 col-md-3 col-sm-4 col-6 mt-3">
+    <a href="{{ route('detail', $product->id)}}" class="list">
+      <div class="card text-center" style="background-color: #DBD3CD">
+        <div class="img__product"> 
+          <img class="card-img-top"  style="max-height: 313px; max-width: auto; height:auto; width:auto;" src="{{ asset($product->image_product) }}" alt="Product Image">
+        </div>
+        <div class="card-body">
+          <h5 class="card-title fw-bold fs-5">{{ $product->name_product }}</h5>
+          <p class="card-text mt-2 fs-5">Rp. {{  number_format($product->price, 0, ',', '.')}}</p>
+          
+        </div>
+      </div>
+    </a>
+  </div>
   @endforeach
-<div class="col-lg-3 col-md-3 col-sm-4 col-6 mt-3">
-  <a href="{{ route('detail')}}" class="list">
-  <div class="card text-center" style="background-color: #DBD3CD">
-    <div class="img__product">
-      <img class="card-img-top" src="{{ asset($product->image_product) }}" alt="Product Image">
-  </div>
-    <div class="card-body">
-      <h5 class="card-title fw-bold fs-5">{{ $product->name_product }}</h5>
-      <p class="card-text mt-2 fs-5">Rp. {{  number_format($product->price, 0, ',', '.')}}</p>
-
-    </div>
-  </div>
-</a>
-</div>
 
 </div>
 <div class="col-12 text-center">        
@@ -203,13 +210,14 @@
 
 .pp{
     max-width: 500px;
-    margin-top: 100px
+    margin-top: 100px;
+    align-content: center
 }
 .main {
 background-image: url('{{ url('images/bg2.png') }}');
 background-size: cover; /* atau 'contain' */
 min-height: 300px; /* misalnya, atur nilai minimum tinggi */
-max-height: 600px; /* misalnya, atur nilai maksimum tinggi */
+height: 700px; /* misalnya, atur nilai maksimum tinggi */
 }
 .list{
   text-decoration: none
@@ -231,12 +239,19 @@ max-height: 600px; /* misalnya, atur nilai maksimum tinggi */
 }
 .content-text{
     max-width: 500px;
+    /* display: flex; */
+    /* align-items: center; */
+    
 }
 
 
-.imgf{
-padding: 15px;
-border-radius: 5px;
+.image{
+    align-items: center;   
+}
+.img_car{
+    display: flex;
+    max-height: 513px; max-width: auto; height:auto; width:auto;
+    align-content: center;
 }
 .img__02{
 cursor: pointer;

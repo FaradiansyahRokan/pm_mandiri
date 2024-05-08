@@ -21,8 +21,9 @@ Route::get('/token', function (Request $request) {
 Route::middleware(['auth'])->group(function(){
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'index'])->name('profile');
-    Route::get('/detail', [App\Http\Controllers\FrontendController::class, 'index'])->name('detail');
-    Route::match(['put', 'patch'], '/profile/id', [ProfileController::class , 'update'])->name('profile.update');
+    Route::get('/detail/{id}', [App\Http\Controllers\FrontendController::class, 'showDetail'])->name('detail');
+    Route::get('/edit/{id}', [App\Http\Controllers\ProfileController::class, 'edit'])->name('edit-profile');
+    Route::put( '/profile/{id}', [ProfileController::class , 'update'])->name('profile.update');
 
     
     
@@ -33,5 +34,7 @@ Route::middleware([AdminMiddleware::class])->group(function(){
     Route::post('/dashboard/create' , [ProductController::class , 'store'])->name('product-store');
     Route::get('/dashboard/show/{id}' , [DashboardController::class , 'show'])->name('show-product');
     Route::delete('/dashboard/show/{id}' , [DashboardController::class , 'destroy'])->name('delete');
+    Route::get('/dashboard/edit/{id}' , [DashboardController::class , 'edit'])->name('edit');
+    Route::patch('/dashboard/edit/{id}' , [DashboardController::class , 'update'])->name('update');
   // اضف المنتجات             
 });

@@ -138,7 +138,7 @@
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <h1>Prodctk Detail</h1>
+            <h1>Product Detail</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
@@ -166,7 +166,7 @@
         @endif
         
         <div class="tombol d-flex">
-            <a href="#" class="btn btn-dark m-1">EDIT</a>
+            <a href="{{ route('edit' , $showData->id)}}" class="btn btn-dark m-1">EDIT</a>
             <form action="{{ route('delete', $showData->id) }}" method="POST">
                 @method('delete')
                 @csrf
@@ -185,6 +185,7 @@
     <!-- Template Main JS File -->
     <script src="{{ url('assets/js/main.js') }}"></script>
     <script src="{{ url('assets/vendor/quill/quill.js')}}"></script>
+    <script src="{{ url('assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 
 </body>
 

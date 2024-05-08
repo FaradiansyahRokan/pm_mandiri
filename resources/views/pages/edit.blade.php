@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Forms - Peti Ngemil</title>
+    <title>Edit - Peti Ngemil</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -138,12 +138,12 @@
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <h1>Form Create</h1>
+            <h1>Form Edit</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
                     <li class="breadcrumb-item">Product</li>
-                    <li class="breadcrumb-item active">Create</li>
+                    <li class="breadcrumb-item active">Edit</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
@@ -154,11 +154,12 @@
 
                     <div class="card w-100">
                         <div class="card-body w-100">
-                            <h5 class="card-title">Make New Product</h5>
+                            <h5 class="card-title">Edit Product</h5>
 
                             <!-- General Form Elements -->
-                            <form method="POST" action="{{ route('product-store') }}"
+                            <form method="POST" action="{{ route('update' , $dataEdit->id) }}"
                                 enctype="multipart/form-data">
+                                @method('patch')
                                 @csrf
 
                                 <div class="row mb-3">
@@ -166,7 +167,7 @@
                                     <div class="col-sm-10">
                                         <input id="name_product" type="text"
                                             class="form-control @error('name_product') is-invalid @enderror"
-                                            name="name_product" value="{{ old('name_product') }}" required
+                                            name="name_product" value="{{$dataEdit->name_product}}"
                                             autocomplete="name_product">
                                     </div>
                                 </div>
@@ -187,8 +188,8 @@
                                             </div>
                                           </div> --}}
                                           <textarea id="description_product" class="form-control @error('description_product') is-invalid @enderror"
-                                              style="height: 100px" name="description_product" value="{{ old('description_product') }}" required
-                                              autocomplete="description_product"></textarea>
+                                              style="height: 100px" name="description_product"
+                                              autocomplete="description_product">{{$dataEdit->description_product}}</textarea>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -196,7 +197,7 @@
                                     <div class="col-sm-10">
                                         <input id="price" type="number"
                                             class="form-control @error('price') is-invalid @enderror" name="price"
-                                            value="{{ old('price') }}" required autocomplete="price">
+                                            value="{{$dataEdit->price}}" autocomplete="price">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -204,14 +205,14 @@
                                     <div class="col-sm-10">
                                         <input id="qty" type="number"
                                             class="form-control @error('qty') is-invalid @enderror" name="qty"
-                                            value="{{ old('qty') }}" required autocomplete="qty">
+                                            value="{{$dataEdit->qty}}" autocomplete="qty">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
                                     <label for="inputNumber" class="col-sm-2 col-form-label">File Upload</label>
                                     <div class="col-sm-10">
                                         <input id="image_product" class="form-control @error('image_product') is-invalid @enderror" name="image_product"
-                                            value="{{ old('image_product') }}" required autocomplete="image_product" type="file">
+                                            value="{{$dataEdit->image_product}}" autocomplete="image_product" type="file">
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -219,10 +220,10 @@
                                     <div class="col-sm-10">
                                         <select id="id_category_flavour" class="form-select"
                                             aria-label="Default select example" name="id_category_flavour"
-                                            value="{{ old('id_category_flavour') }}" required
+                                            value="{{ old('id_category_flavour') }}"
                                             autocomplete="id_category_flavour">
 
-                                            <option selected>Open this select menu</option>
+                                            {{-- <option selected>Open this select menu</option> --}}
                                             @foreach ($data_flavours as $dataFlavour)
                                                 <option value="{{ $dataFlavour->id }}">
                                                     {{ $dataFlavour->list_flavour }}</option>
@@ -236,10 +237,10 @@
                                     <div class="col-sm-10">
                                         <select id="id_category_size" class="form-select"
                                             aria-label="Default select example" name="id_category_size"
-                                            value="{{ old('id_category_size') }}" required
+                                            value="{{ old('id_category_size') }}"
                                             autocomplete="id_category_size">
 
-                                            <option selected>Open this select menu</option>
+                                            {{-- <option selected>Open this select menu</option> --}}
                                             @foreach ($data_sizes as $datasize)
                                                 <option value="{{ $datasize->id }}">
                                                     {{ $datasize->list_size }}</option>
@@ -253,9 +254,9 @@
                                     <div class="col-sm-10">
                                         <select id="id_category_menu" class="form-select"
                                             aria-label="Default select example" name="id_category_menu"
-                                            value="{{ old('id_category_menu') }}" required autocomplete="id_category_menu">
+                                            value="{{ old('id_category_menu') }}" autocomplete="id_category_menu">
 
-                                            <option selected>Open this select menu</option>
+                                            {{-- <option selected>Open this select menu</option> --}}
                                             @foreach ($data_menus as $datamenu)
                                                 <option value="{{ $datamenu->id }}">
                                                     {{ $datamenu->list_menu }}</option>
