@@ -23,7 +23,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'index'])->name('profile');
     Route::get('/detail/{id}', [App\Http\Controllers\FrontendController::class, 'showDetail'])->name('detail');
     Route::get('/edit/{id}', [App\Http\Controllers\ProfileController::class, 'edit'])->name('edit-profile');
-    Route::put( '/profile/{id}', [ProfileController::class , 'update'])->name('profile.update');
+    Route::put( '/profile', [ProfileController::class , 'update'])->name('profile.update');
 
     
     

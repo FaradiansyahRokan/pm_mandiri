@@ -48,7 +48,6 @@
 
             <li class="nav-item"> 
               <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
-              <a href="{{route('edit-profile', $address->id)}}"></a>
             </li>
 
             <li class="nav-item">
@@ -81,18 +80,34 @@
 
               <div class="row">
                 <div class="col-lg-3 col-md-4 label">Address</div>
-                <div class="col-lg-9 col-md-8">{{ $address->city }}, {{ $address->province }}, {{ $address->district }}, {{ $address->sub_district }}, {{ $address->detail }}, {{ $address->address_type }}</div>
+                <div class="col-lg-9 col-md-8">
+                  @if($address)
+            {{ $address->city }}, {{ $address->province }}, {{ $address->district }}, {{ $address->sub_district }}, {{ $address->detail }}, {{ $address->address_type }}
+        @else
+            No address available.
+        @endif
+                </div>
               </div>
 
 
               <div class="row">
                 <div class="col-lg-3 col-md-4 label">Phone</div>
-                <div class="col-lg-9 col-md-8">{{ $user->phone}}</div>
+                <div class="col-lg-9 col-md-8">
+                  @if($user->phone_number === null)
+                  No phone number available
+                  @else
+                  {{ $user->phone_number}}
+                @endif
+              </div>
               </div>
 
               <div class="row">
                 <div class="col-lg-3 col-md-4 label">Email</div>
-                <div class="col-lg-9 col-md-8">{{ $user->email}}</div>
+                <div class="col-lg-9 col-md-8">@if($user->email === null)
+                  No email available
+                  @else
+                  {{ $user->email}}
+                @endif</div>
               </div>
 
             </div>
@@ -138,42 +153,66 @@
                 <div class="row mb-3">
                   <label for="phone_number" class="col-md-4 col-lg-3 col-form-label">Phone Number</label>
                   <div class="col-md-8 col-lg-9">
+                    @if($user->phone_number === null) 
+                    <input name="phone_number" type="text" class="form-control" id="phone_number" value="">
+                    @else
                     <input name="phone_number" type="text" class="form-control" id="phone_number" value="{{ $user->phone_number }}">
+                    @endif
                   </div>
                 </div>
 
                 <div class="row mb-3">
                   <label for="city" class="col-md-4 col-lg-3 col-form-label">City</label>
                   <div class="col-md-8 col-lg-9">
+                    {{-- @if($address->city === null || $address === null) --}}
+                    <input name="city" type="text" class="form-control" id="city" value="">
+                    {{-- @else
                     <input name="city" type="text" class="form-control" id="city" value="{{ $address->city }}">
+                    @endif --}}
                   </div>
                 </div>
 
                 <div class="row mb-3">
                   <label for="province" class="col-md-4 col-lg-3 col-form-label">Province</label>
                   <div class="col-md-8 col-lg-9">
+                    {{-- @if($address->province === null || $address === null) --}}
+                    <input name="province" type="text" class="form-control" id="province" value="">
+                    {{-- @else
                     <input name="province" type="text" class="form-control" id="province" value="{{ $address->province }}">
+                    @endif --}}
                   </div>
                 </div>
 
                 <div class="row mb-3">
                   <label for="district" class="col-md-4 col-lg-3 col-form-label">District</label>
                   <div class="col-md-8 col-lg-9">
+                    {{-- @if($address->district === null || $address === null) --}}
+                    <input name="district" type="text" class="form-control" id="district" value="">
+                    {{-- @else
                     <input name="district" type="text" class="form-control" id="district" value="{{ $address->district }}">
+                    @endif --}}
                   </div>
                 </div>
 
                 <div class="row mb-3">
-                  <label for="sub-district" class="col-md-4 col-lg-3 col-form-label">Sub District</label>
+                  <label for="sub_district" class="col-md-4 col-lg-3 col-form-label">Sub District</label>
                   <div class="col-md-8 col-lg-9">
-                      <input name="sub-district" type="text" class="form-control" id="sub-district" value="{{ $address->sub_district }}">
+                    {{-- @if($address->sub_district === null || $address === null) --}}
+                    <input name="sub_district" type="text" class="form-control" id="sub_district" value="">
+                    {{-- @else
+                    <input name="sub_district" type="text" class="form-control" id="sub_district" value="{{ $address->sub_district }}">
+                    @endif --}}
                   </div>
                 </div>
 
                 <div class="row mb-3">
                   <label for="detail" class="col-md-4 col-lg-3 col-form-label">Detail</label>
                   <div class="col-md-8 col-lg-9">
-                    <input name="detail" type="text" class="form-control" id="detail" value="{{ $address->detail }}">
+                    {{-- @if( $address->detail === null || $address === null) --}}
+                    <input name="detail" type="text" class="form-control" id="detail" value="">
+                    {{-- @else
+                    <input name="detail" type="text" class="form-control" id="detail" value="{{  $address->detail }}">
+                    @endif --}}
                   </div>
                 </div>
 
@@ -182,7 +221,11 @@
                 <div class="row mb-3">
                   <label for="address_type" class="col-md-4 col-lg-3 col-form-label">Address Type</label>
                   <div class="col-md-8 col-lg-9">
-                    <input name="address_type" type="text" class="form-control" id="address_type" value="{{ $address->address_type }}">
+                    {{-- @if( $address->address_type === null || $address === null) --}}
+                    <input name="address_type" type="text" class="form-control" id="address_type" value="">
+                    {{-- @else
+                    <input name="address_type" type="text" class="form-control" id="address_type" value="{{  $address->address_type }}">
+                    @endif --}}
                   </div>
                 </div>
 
