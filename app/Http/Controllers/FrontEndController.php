@@ -2,43 +2,88 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cart;
-use App\Models\Category;
 use App\Models\Product;
-use App\Models\Products;
-use App\Models\User;
+use App\Models\Category;
+use App\Models\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class FrontendController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display product details.
      */
     public function showDetail($id)
     {
         $products = Product::findOrFail($id);
-        return view('pages.detail' , compact('products'));
+        $category = Category::all();
+        return view('pages.detail', compact('products', 'category'));
+    }
+    public function showCart()
+    {
+        $cartItems = Cart::where('id_user', Auth::user()->id)->with('product')->get();
+        $category = Category::all();
+        return view('pages.cart', compact('cartItems' , 'category'));
+    }
+    
+
+    /**
+     * Add product to cart.
+     */
+    public function cartAdd(Request $request, $id)
+    {
+        $cartItem = Cart::where('id_user', Auth::user()->id)
+                        ->where('id_product', $id)
+                        ->first();
+    
+        if ($cartItem) {
+            $cartItem->qty += 1;
+            $cartItem->save();
+        } else {
+            Cart::create([
+                'id_user' => Auth::user()->id,
+                'id_product' => $id,
+                'qty' => 1
+            ]);
+        }
+    
+        return redirect()->route('cart')->with('success', 'Product added to cart successfully!');
     }
 
-    public function cartAdd(Request $request, $id) {
-        Cart::create([
-            'id_user' => Auth::user()->id,
-            'id_product' => $id
-        ]);
-        return redirect();
+    public function updateCart(Request $request, $id)
+{
+    $cartItem = Cart::where('id_user', Auth::user()->id)
+                    ->where('id_product', $id)
+                    ->first();
+
+    if ($cartItem) {
+        $cartItem->qty = $request->quantity;
+        $cartItem->save();
     }
 
-    public function cartDelete(Request $request, $id) {
-        Cart::findOrFail($id)->delete();
+    return redirect()->route('cart')->with('success', 'Cart updated successfully!');
+}
 
-        return redirect();
+    /**
+     * Remove product from cart.
+     */
+    public function cartDelete(Request $request, $id)
+    {
+        Cart::where('id_user', Auth::user()->id)
+            ->where('id_product', $id)
+            ->delete();
+
+        return redirect()->back()->with('success', 'Product removed from cart successfully!');
     }
 
-    public function category($id) {
+    /**
+     * Display products by category.
+     */
+    public function category($id)
+    {
         $categories = Category::all();
         $products = Product::where('category_id', $id)->get();
 
-        return view();
+        return view('pages.category', compact('categories', 'products'));
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CategoryMenu;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -25,6 +26,7 @@ class HomeController extends Controller
     public function index()
     {
         $products = Product::all();
-        return view('index', compact('products'));
+        $category = CategoryMenu::all(); 
+        return view('index', compact('products', 'category'));
     }
 }

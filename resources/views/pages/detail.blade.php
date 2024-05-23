@@ -19,22 +19,12 @@
                   <div class="row">
                       <div class="col-md-6 my-2">
                           <div class="card">
-                              <a href="#" class="btn btn-lg btn-block text-light fw-bold" style="background-color: #515151;">Buy Now</a>
-                          </div>
-                      </div>
-                      <div class="col-md-6 my-2">
-                          <div class="card">
-                              <a class="btn btn-lg btn-block text-dark fw-bold shadow p-2 bg-body-tertiary rounded" style="background-color: #DBD3CD;" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">+ Add to cart</a>
-                          </div>
-                      </div>
-                      <div class="col-md-6 my-2">
-                          <div class="card">
-                              <a href="#" class="btn btn-lg btn-block text-light fw-bold" style="background-color: #515151;">Buy Now</a>
-                          </div>
-                      </div>
-                      <div class="col-md-6 my-2">
-                          <div class="card">
-                              <a href="#" class="btn btn-lg btn-block text-light fw-bold" style="background-color: #515151;">Buy Now</a>
+                              <form action="{{ route('cart.add', $products->id) }}" method="POST">
+                                  @csrf
+                                  <button type="submit" class="btn btn-lg btn-block text-dark fw-bold shadow p-2 bg-body-tertiary rounded" style="background-color: #DBD3CD;">
+                                      + Add to cart
+                                  </button>
+                              </form>
                           </div>
                       </div>
                   </div>
@@ -45,7 +35,8 @@
 </div>
 
 
-        <div class="offcanvas offcanvas-end"  style="width: 30%"  tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+
+        {{-- <div class="offcanvas offcanvas-end"  style="width: 30%"  tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
             <div class="offcanvas-header">
               <h5 class="offcanvas-title" id="offcanvasExampleLabel">Cart</h5>
               <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -214,7 +205,7 @@
              
               <button class="btn btn-primary" style="width: 100%;">BELI SEKARANG</button>
             </div>
-          </div>
+          </div> --}}
 
           <div class="container">
 <div class="row mt-4">

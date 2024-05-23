@@ -18,8 +18,18 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function showByCategory($list_menu)
     {
+
+        $list_menu = CategoryMenu::where('list_menu', $list_menu)->first();
+
+        $sortCategory = Product::where('id_category_menu', $list_menu->id)->get();
+        $category = CategoryMenu::all(); 
+
+
+        // dd($list_menu);
+        return view('pages.showCategory', compact('sortCategory' , 'category'));
+
     }
 
     /**

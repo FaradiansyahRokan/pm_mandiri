@@ -54,11 +54,14 @@
                                   PRODUCT
                                 </a>
                                 <ul class="dropdown-menu">
-                                  <li><a class="dropdown-item" href="#">MAKARONI</a></li>
-                                  <li><a class="dropdown-item" href="#">KRIPIK PISANG</a></li>
-                                  <li><a class="dropdown-item" href="#">BASRENG</a></li>
-                                  <li><a class="dropdown-item" href="#">USUS KRISPI</a></li>
+                                    @foreach($category as $categorys)
+                                        @php
+                                            $formattedCategory = strtoupper(str_replace('-', ' ', $categorys->list_menu));
+                                        @endphp
+                                        <li><a class="dropdown-item" href="{{ route('products.category', $categorys->list_menu) }}">{{ $formattedCategory }}</a></li>
+                                    @endforeach
                                 </ul>
+                                
                               </li>
                               <li class="nav-item">
                                 <a class="nav-link text-black fw-light" href="#">TESTIMONIALS</a>

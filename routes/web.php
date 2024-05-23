@@ -4,6 +4,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Middleware\AdminMiddleware;
 use Database\Seeders\AdminSeeder;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProfileController;
@@ -19,15 +21,18 @@ Route::get('/token', function (Request $request) {
     $token = csrf_token();
 });
 Route::middleware(['auth'])->group(function(){
-    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'index'])->name('profile');
-    Route::get('/detail/{id}', [App\Http\Controllers\FrontendController::class, 'showDetail'])->name('detail');
-    // Route::get('/edit/{id}', [App\Http\Controllers\ProfileController::class, 'edit'])->name('edit-profile');
-    Route::put('/profile/{id}', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
+    Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+Route::get('/detail/{id}', [FrontendController::class, 'showDetail'])->name('detail');
+Route::put('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
+Route::get('/products/category/{categoryId}', [ProductController::class, 'showByCategory'])->name('products.category');
+Route::post('/cart/add/{id}', [FrontendController::class, 'cartAdd'])->name('cart.add');
+Route::post('/cart/delete/{id}', [FrontendController::class, 'cartDelete'])->name('cart.delete');
+Route::post('/cart/update/{id}', [FrontendController::class, 'updateCart'])->name('cart.update');
+Route::get('/cart', [FrontendController::class, 'showCart'])->name('cart');
 
 
-    
-    
+
 });
 
 // Route::middleware(['auth'])->group(function () {

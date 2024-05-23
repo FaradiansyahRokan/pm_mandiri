@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -28,5 +29,9 @@ class Product extends Model
     {
         return $this->hasOne(CategorySize::class, 'id_category_size', 'id');
     }
-    
+    public function carts(): HasMany
+    {
+        return $this->hasMany(Cart::class, 'id_product', 'id');
+    }
 }
+
