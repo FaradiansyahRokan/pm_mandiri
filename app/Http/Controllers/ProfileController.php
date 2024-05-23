@@ -28,6 +28,7 @@ class ProfileController extends Controller
         // $address = Address::find();
 
         $user = User::find(auth()->id());
+        // $user = User::find($id);
         $user->fullName = $user->first_name . ' ' . $user->last_name;
 
         $address = Address::where('id_user', $user->id)->first();
@@ -72,35 +73,36 @@ class ProfileController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find(auth()->id());
-        $user->fullName = $user->first_name . ' ' . $user->last_name;
+        // $user = User::find(auth()->id());
+        // $user->fullName = $user->first_name . ' ' . $user->last_name;
         
-        $address = Address::where('id_user', $user->id)->first();
+        // $address = Address::where('id_user', $user->id)->first();
 
-        return view('', [
-            'dataEdit' => [
-                'user' => $user,
-                'address' => $address
-            ]
-        ]);
+        // return view('', [
+        //     'dataEdit' => [
+        //         'user' => $user,
+        //         'address' => $address
+        //     ]
+        // ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $profile_request,  $id)
+    public function update(Request $profile_request, $id)
     {
-
-        // dd($profile_request);
-
+        // $id = auth()->id();
         $user = User::find($id);
+        // $addresses = Address::all();
         $address = Address::where('id_user', $id)->first();
+        // dd($id);   
 
-        if ($user && $address) {
+        if ($user) {
             // $validated = $profile_request->validated();
-
+        
             if (!empty($profile_request['password'])) {
                 $user->update([
+                    // 'id_user' => $user->id,
                     'first_name' => $profile_request['first_name'],
                     'last_name' => $profile_request['last_name'],
                     'phone_number' => $profile_request['phone_number'],
@@ -111,6 +113,8 @@ class ProfileController extends Controller
                 ]);
             } else {
                 $user->update([
+                    // 'id_user' => $user->id,
+
                     'first_name' => $profile_request['first_name'],
                     'last_name' => $profile_request['last_name'],
                     'phone_number' => $profile_request['phone_number'],
@@ -120,23 +124,45 @@ class ProfileController extends Controller
                 ]);
             }
 
-            $address->update([
-                'city' => $profile_request['city'],
-                'province' => $profile_request['province'],
-                'district' => $profile_request['district'],
-                'sub_district' => $profile_request['sub_district'],
-                'detail' => $profile_request['detail'],
-                'address_type' => $profile_request['address_type'],
-            ]);
-
-            if ($profile_request->hasFile('image_profile')) {
-                Storage::delete($user->image_profile);
-                $user->update([
-                    'image_profile' => $profile_request->file('image_profile')->store('image_profile'),
+            if(!$address) { 
+                Address::create([
+                    'id_user' => $id,
+                    'city' => $profile_request['city'],
+                    'province' => $profile_request['province'],
+                    'district' => $profile_request['district'],
+                    'sub-district' => $profile_request['sub_district'],
+                    'detail' => $profile_request['detail'],
+                    'address_type' => $profile_request['address_type'],
+                ]);
+            } else {
+                $address->update([
+                    'id_user' => $id,
+                    'city' => $profile_request['city'],
+                    'province' => $profile_request['province'],
+                    'district' => $profile_request['district'],
+                    'sub-district' => $profile_request['sub_district'],
+                    'detail' => $profile_request['detail'],
+                    'address_type' => $profile_request['address_type'],
                 ]);
             }
 
-            return redirect()->route('profile');
+            
+
+            if ($profile_request->hasFile('image_profile')) {
+                if ($user->image_profile) {
+                    Storage::delete($user->image_profile);
+                }
+            
+                $imageName = time() . '.' . $profile_request->file('image_profile')->getClientOriginalExtension();
+                $profile_request->file('image_profile')->storeAs('public/gallery', $imageName);
+                $user->update([
+                    'image_profile' => "storage/gallery/" . $imageName,
+                ]);
+            }
+
+            // dd($profile_request);
+
+            return redirect()->back();
         }
     }
 

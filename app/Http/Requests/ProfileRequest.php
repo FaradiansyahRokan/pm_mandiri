@@ -24,14 +24,18 @@ class ProfileRequest extends FormRequest
     {
         return [
             'first_name' => 'required|max:125',
-            'city' => 'required|string',
-            'province' => 'required|string',
-            'district' => 'required|string',
-            'sub-district' => 'required|string',
-            'address_type' => 'required',
-            'detail' => 'max:1000|required',
-            'phone_number' => 'integer|max:15|required',
-            'email' => 'email|required'
+        'last_name' => 'nullable|max:125',
+        'phone_number' => 'required|integer',
+        'gender' => 'nullable|in:male,female',
+        'email' => 'required|email',
+        'birth_date' => 'nullable|date',
+        'city' => 'nullable|string',
+        'province' => 'nullable|string',
+        'district' => 'nullable|string',
+        'sub-district' => 'nullable|string',
+        'detail' => 'nullable|string|max:1000',
+        'address_type' => 'nullable|string',
+        'image_profile' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }
 }

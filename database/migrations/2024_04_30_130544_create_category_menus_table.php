@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('category_menus', function (Blueprint $table) {
             $table->id();
-            $table->string('list_menu');
+            $table->string('list_menu')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

@@ -35,7 +35,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="{{ route('dashboard')}}" class="logo d-flex align-items-center">
+      <a href="{{ route('home')}}" class="logo d-flex align-items-center">
         <!-- <img src="../../../" alt=""> -->
         <span class="d-none d-lg-block">Peti Ngemil</span>
       </a>
@@ -101,35 +101,67 @@
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
-      <li class="nav-item">
+<li class="nav-item">
+        @if(Auth::user() && Auth::user()->role == 'admin')
         <a class="nav-link " href="{{ route('dashboard')}}">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
       </li><!-- End Dashboard Nav -->
 
-      <li class="nav-item">
+     <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-menu-button-wide"></i><span>Product</span><i class="bi bi-chevron-down ms-auto"></i>
+            <i class="bi bi-menu-button-wide"></i><span>Product</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="{{ route('product')}}">
-              <i class="bi bi-circle"></i><span>Create</span>
-            </a>
-      </li>
+            <li>
+                <a href="{{ route('product')}}">
+                    <i class="bi bi-circle"></i><span>Create Product</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('category')}}">
+                    <i class="bi bi-circle"></i><span>Add Category</span>
+                </a>
+            </li>
         </ul>
-      </li><!-- End Components Nav -->
-
-
-      <li class="nav-heading">Pages</li>
+        <li class="nav-heading">Pages</li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{ route('profile')}}">
-          <i class="bi bi-person"></i>
-          <span>Profile</span>
+        <a class="nav-link collapsed" href="{{ route('profile') }}">
+            <i class="bi bi-person"></i>
+            <span>Profile</span>
         </a>
-      </li><!-- End Profile Page Nav -->
+    </li><!-- End Profile Page Nav -->
+        @else
+
+        <li class="nav-item">
+          <a class="nav-link " href="{{ route('home')}}">
+            <i class="ri-handbag-line"></i>
+            <span>Home</span>
+          </a>
+        </li><!-- End Dashboard Nav -->
+        
+              <li class="nav-heading">Pages</li>
+        
+              <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('profile') }}">
+                    <i class="bi bi-person"></i>
+                    <span>Profile</span>
+                </a>
+            </li><!-- End Profile Page Nav -->
+
+    @endif
+</li><!-- End Components Nav -->
+
+
+      {{-- <li class="nav-item">
+        <a class="nav-link collapsed" href="{{ route('profile', auth()->user()->id) }}">
+            <i class="bi bi-person"></i>
+            <span>Profile</span>
+        </a>
+    </li><!-- End Profile Page Nav --> --}}
+    
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="pages-login.html">

@@ -41,6 +41,11 @@
                               <li class="nav-item ">
                                 <a class="nav-link active text-black fw-light" aria-current="page" href="{{ route('home')}}">HOME</a>
                               </li>
+                              @if(Auth::user() && Auth::user()->role == 'admin')
+                              <li class="nav-item ">
+                                <a class="nav-link active text-black fw-light" aria-current="page" href="{{ route('dashboard')}}">DASHBOARD</a>
+                              </li>
+                              @endif
                               <li class="nav-item ">
                                 <a class="nav-link active text-black fw-light" aria-current="page" href="#">ABOUT</a>
                               </li>

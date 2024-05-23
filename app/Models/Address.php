@@ -12,7 +12,7 @@ class Address extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'city', 'province', 'district', 'sub-district', 'detail', 'address_type'
+      'id_user'  ,'city', 'province', 'district', 'sub-district', 'detail', 'address_type'
     ];
 
     public function users(): BelongsTo
