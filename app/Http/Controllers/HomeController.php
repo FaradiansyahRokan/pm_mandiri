@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CategoryMenu;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -13,11 +14,7 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
+    
     /**
      * Show the application dashboard.
      *
@@ -26,7 +23,12 @@ class HomeController extends Controller
     public function index()
     {
         $products = Product::all();
-        $category = CategoryMenu::all(); 
-        return view('index', compact('products', 'category'));
+        $category = CategoryMenu::all();
+        $user = User::find(auth()->id()); 
+        return view('index', compact('products', 'category' , 'user'));
     }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 }

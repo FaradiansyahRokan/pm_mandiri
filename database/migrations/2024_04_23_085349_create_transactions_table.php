@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,11 +13,9 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_user');
-            $table->string('name');
-            $table->string('email');
+            $table->text('notes')->nullable();
+            $table->integer('total_price');
             $table->string('status')->default('PENDING');
-            $table->longText('notes');
-            $table->bigInteger('total_price');
             $table->timestamps();
             $table->softDeletes();
 

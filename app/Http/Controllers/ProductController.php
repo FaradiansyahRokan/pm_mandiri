@@ -11,6 +11,7 @@ use App\Models\CategoryMenu;
 use App\Models\CategorySize;
 use App\Models\Product;
 use App\Models\ProductGallery;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -25,10 +26,15 @@ class ProductController extends Controller
 
         $sortCategory = Product::where('id_category_menu', $list_menu->id)->get();
         $category = CategoryMenu::all(); 
+        $user = User::find(auth()->id());
 
 
         // dd($list_menu);
-        return view('pages.showCategory', compact('sortCategory' , 'category'));
+        return view('pages.showCategory',  [
+            'sortCategory' => $sortCategory,
+            'category' => $category,
+            'user' => $user
+        ]);
 
     }
 

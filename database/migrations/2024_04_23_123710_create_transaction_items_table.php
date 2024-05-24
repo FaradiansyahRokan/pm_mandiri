@@ -16,6 +16,9 @@ return new class extends Migration
             $table->unsignedBigInteger('id_user');
             $table->unsignedBigInteger('id_transaction');
             $table->unsignedBigInteger('id_product');
+            $table->integer('qty');
+            $table->integer('price');
+            $table->integer('total_price');
             $table->timestamps();
             $table->softDeletes();
 

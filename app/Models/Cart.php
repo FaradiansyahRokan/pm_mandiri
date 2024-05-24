@@ -12,7 +12,7 @@ class Cart extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'id_user', 'id_product', 'qty', 'total_price'
+        'id_user', 'id_product', 'qty'
     ];
 
     public function product(): BelongsTo
@@ -23,10 +23,6 @@ class Cart extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'id_user', 'id');
-    }
-    public function getTotalPriceAttribute()
-    {
-        return $this->product->price * $this->qty;
     }
 }
 

@@ -15,24 +15,26 @@ use Illuminate\Support\Facades\Route;
 
 
 Auth::routes();
-Route::get('/token', function (Request $request) {
-    $token = $request->session()->token();
+// Route::get('/token', function (Request $request) {
+//     $token = $request->session()->token();
  
-    $token = csrf_token();
-});
-Route::middleware(['auth'])->group(function(){
-    Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+//     $token = csrf_token();
+// });
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/detail/{id}', [FrontendController::class, 'showDetail'])->name('detail');
-Route::put('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
 Route::get('/products/category/{categoryId}', [ProductController::class, 'showByCategory'])->name('products.category');
+
+Route::middleware(['auth'])->group(function(){
+Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+Route::put('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
 Route::post('/cart/add/{id}', [FrontendController::class, 'cartAdd'])->name('cart.add');
 Route::post('/cart/delete/{id}', [FrontendController::class, 'cartDelete'])->name('cart.delete');
 Route::post('/cart/update/{id}', [FrontendController::class, 'updateCart'])->name('cart.update');
 Route::get('/cart', [FrontendController::class, 'showCart'])->name('cart');
-
-
-
+Route::post('/checkout', [FrontendController::class, 'checkout'])->name('checkout');
+Route::get('/checkout/{transaction}', [FrontendController::class, 'showCheckoutDetail'])->name('checkout.detail');
+Route::get('/payment-steps', [FrontendController::class, 'paymentsteps'])->name('payment.steps');
 });
 
 // Route::middleware(['auth'])->group(function () {

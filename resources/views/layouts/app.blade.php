@@ -83,7 +83,12 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    <img src="https://ui-avatars.com/api/?name={{ Auth::user()->first_name }}" class="img-thumbnail bulat" alt="" width="40">
+                                    {{-- <img src="https://ui-avatars.com/api/?name={{ Auth::user()->first_name }}" class="img-thumbnail bulat" alt="" width="40"> --}}
+                                    @if($user->image_profile)
+                                    <img src="{{  $user->image_profile }}" class="img-thumbnail bulat" alt="Profile Image" width="40">
+                                  @else
+                                    <img src="https://ui-avatars.com/api/?name={{ $user->first_name }}" class="img-thumbnail bulat" alt="Profile Image" width="40">
+                                  @endif
                                  </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -92,6 +97,22 @@
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
+
+                                    <a class="dropdown-item" href="{{ route('profile') }}">
+                                        Profile
+                                    </a>
+
+                                    <a class="dropdown-item" href="{{ route('cart') }}">
+                                        Keranjang
+                                    </a>
+
+                                    @if(session('last_transaction_id'))
+    <a class="dropdown-item" href="{{ route('checkout.detail', ['transaction' => session('last_transaction_id')]) }}">
+        Pesanan
+    </a>
+@endif
+
+
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf

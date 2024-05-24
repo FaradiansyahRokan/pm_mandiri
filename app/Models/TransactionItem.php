@@ -12,11 +12,20 @@ class TransactionItem extends Model
 {
     use HasFactory, SoftDeletes;
 
-    public function transactions() :BelongsTo {
-        return $this->belongsTo(Transaction::class, 'id_transaction', 'id');
+    protected $fillable = [
+        'id_user',
+        'id_transaction',
+        'id_product',
+        'qty',
+        'price',
+        'total_price',
+    ]; public function product()
+    {
+        return $this->belongsTo(Product::class, 'id_product');
     }
 
-    public function products() :HasMany {
-        return $this->hasMany(Product::class, 'id_product', 'id');
+    public function transaction()
+    {
+        return $this->belongsTo(Transaction::class, 'id_transaction');
     }
 }

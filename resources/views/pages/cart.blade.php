@@ -35,10 +35,10 @@
                                         <input type="number" name="quantity" value="{{ $item->qty }}" min="1" class="form-control" style="width: 60px;">
                                         <button type="submit" class="btn btn-primary">Update</button>
                                     </div>
-                                </form>
+                                </form>     
                             </td>
                             <td>RP {{ number_format($item->product->price, 0, ',', '.') }}</td>
-                            <td>RP {{ number_format($item->total_price, 0, ',', '.') }}</td>
+                            <td>RP {{ number_format($item->product->price * $item->qty, 0, ',', '.') }}</td> <!-- Update Total Price Calculation -->
                             <td>
                                 <form action="{{ route('cart.delete', $item->id_product) }}" method="POST">
                                     @csrf
@@ -49,6 +49,12 @@
                     @endforeach
                 </tbody>
             </table>
+        </div>
+        <div class="d-flex justify-content-end">
+            <form action="{{ route('checkout') }}" method="POST">
+                @csrf
+                <button type="submit" class="btn btn-success">Checkout</button>
+            </form>
         </div>
     @endif
 </div>

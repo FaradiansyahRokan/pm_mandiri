@@ -2,7 +2,7 @@
 
 @section('content')
 <div id="carouselExample" class="carousel slide">
-    <div class="carousel-inner" style="height: 800px">
+    <div class="carousel-inner">
       <div class="carousel-item active">
         <div class="main container-fluid">
     <div class="container d-flex flex-row justify-content-evenly">
@@ -96,7 +96,7 @@
         </div>
     </div>
     <div class="image">
-        <img src="{{ url('images/tiramisusu.png')}}" alt="" class="img_car">
+        <img src="{{ url('images/tiramisusu.png')}}" alt="" class="img_car" id="tira">
     </div>
 </div>
 </div>
@@ -187,6 +187,68 @@
 </body>
 <style>
 
+@media (max-width: 767px) { 
+    .carousel-item {
+        height: auto; /* Adjust height for mobile view */
+        padding: 20px;
+      }
+
+      .text-content {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .image img {
+        width: 300px;
+        /* height: auto; */
+      }
+      .main{
+        height: 400px;
+      }
+      .pp{
+        max-width: 200px;
+        margin-top: 100px;
+        align-content: center
+      }
+      #tira{
+        width: 200px;
+      }
+    }
+
+    @media (min-width: 768px) {
+      .carousel-item {
+        height: 800px;
+      }
+      .text-content {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .main{
+        height: 700px;
+      }
+      .carousel-inner{
+        height: 400px;
+        margin-bottom: 50px
+    }
+
+    }
+
+    @media (min-width: 992px) {
+      .carousel-item {
+        height: 800px;
+      }
+      .text-content {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .main{
+        height: 700px;
+      }
+      .carousel-inner{
+        height: 500px;
+        margin-bottom: 100px;
+    }
+    }
 .pp{
     max-width: 500px;
     margin-top: 100px;
@@ -194,20 +256,16 @@
 }
 .main {
 background-image: url('{{ url('images/bg2.png') }}');
-background-size: cover; /* atau 'contain' */
-min-height: 300px; /* misalnya, atur nilai minimum tinggi */
-height: 700px; /* misalnya, atur nilai maksimum tinggi */
+/* atau 'contain' */
+ /* misalnya, atur nilai maksimum tinggi */
 }
 .list{
   text-decoration: none
 }
-.carousel-inner{
-    height: 580px
-}
-.tiramisu{
-    margin-left: 200px;
-    margin-top: 80px
-}
+/* .carousel-inner{
+    height: 800px;
+} */
+
 .product_card{
     margin-top: 100px;
 }
