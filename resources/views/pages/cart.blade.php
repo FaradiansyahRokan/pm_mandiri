@@ -13,21 +13,27 @@
     @if($cartItems->isEmpty())
         <p>Your cart is empty.</p>
     @else
-        <div class="table-responsive">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Product</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
-                        <th>Total Price</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($cartItems as $item)
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-md-8">
+                <table class="table table-hover cart-table">
+                    <thead>
                         <tr>
-                            <td>{{ $item->product->name_product }}</td>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Subtotal</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($cartItems as $item)
+                        <tr>
+                            <td>
+                                <img src="{{ $item->product->image_product }}" alt="">
+                                {{ $item->product->name_product }}
+                            </td>
+                            <td>RP {{ number_format($item->product->price, 0, ',', '.') }}</td>
                             <td>
                                 <form action="{{ route('cart.update', $item->id_product) }}" method="POST">
                                     @csrf
@@ -35,27 +41,79 @@
                                         <input type="number" name="quantity" value="{{ $item->qty }}" min="1" class="form-control" style="width: 60px;">
                                         <button type="submit" class="btn btn-primary">Update</button>
                                     </div>
-                                </form>     
+                                </form>
                             </td>
-                            <td>RP {{ number_format($item->product->price, 0, ',', '.') }}</td>
-                            <td>RP {{ number_format($item->product->price * $item->qty, 0, ',', '.') }}</td> <!-- Update Total Price Calculation -->
+                            <td>RP {{ number_format($item->product->price * $item->qty, 0, ',', '.') }}</td>
                             <td>
                                 <form action="{{ route('cart.delete', $item->id_product) }}" method="POST">
                                     @csrf
-                                    <button type="submit" class="btn btn-danger">Remove</button>
+                                    <button type="submit" class="btn btn-link text-danger">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
                                 </form>
                             </td>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <div class="cart-total">
+                    <h5>Cart Totals</h5>
+                    <div class="d-flex justify-content-between">
+                        <span>Total</span>
+                        <strong>RP {{ number_format($totalPrice, 0, ',', '.') }}</strong>
+                    </div>
+                    @if($address->city != null)
+                    <form action="{{ route('checkout') }}" method="POST">
+                        @csrf
+                        <div class="form-group mt-3">
+                            <label for="notes">Catatan untuk Admin:</label>
+                            <textarea name="notes" id="notes" class="form-control" rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-checkout btn-block mt-4">Checkout</button>
+                    </form>
+                    @else
+                    <div class="alert alert-warning mt-4">
+                        Anda belum memiliki alamat pengiriman. Silakan tambahkan alamat terlebih dahulu.
+                    </div>
+                    <a href="{{ route('profile') }}" class="btn btn-primary btn-block mt-4">Tambah Alamat</a>
+                    @endif
+                </div>
+            </div>
         </div>
-        <div class="d-flex justify-content-end">
-            <form action="{{ route('checkout') }}" method="POST">
-                @csrf
-                <button type="submit" class="btn btn-success">Checkout</button>
-            </form>
-        </div>
+    </div>
     @endif
 </div>
 @endsection
+
+<style>
+    .cart-table img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+    .cart-table th, .cart-table td {
+        vertical-align: middle;
+        text-align: center;
+    }
+    .cart-total {
+        background-color: #f9f1e7;
+        padding: 20px;
+        border-radius: 10px;
+    }
+    .cart-total h5 {
+        margin-bottom: 20px;
+    }
+    .cart-total .btn-checkout {
+        background-color: #f9f1e7;
+        border: 2px solid #000;
+        color: #000;
+        font-weight: bold;
+    }
+    .cart-total .btn-checkout:hover {
+        background-color: #b88e2f;
+        border-color: #b88e2f;
+        color: #fff;
+    }
+</style>

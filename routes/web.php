@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminTransaction;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Middleware\AdminMiddleware;
 use Database\Seeders\AdminSeeder;
 use App\Http\Controllers\DashboardController;
@@ -34,7 +35,9 @@ Route::post('/cart/delete/{id}', [FrontendController::class, 'cartDelete'])->nam
 Route::post('/cart/update/{id}', [FrontendController::class, 'updateCart'])->name('cart.update');
 Route::get('/cart', [FrontendController::class, 'showCart'])->name('cart');
 Route::post('/checkout', [FrontendController::class, 'checkout'])->name('checkout');
+Route::post('/checkout/contact', [FrontendController::class, 'sendreceipt'])->name('checkout.contact');
 Route::get('/checkout/{transaction}', [FrontendController::class, 'showCheckoutDetail'])->name('checkout.detail');
+Route::get('/checkout/download/{transaction}', [CheckoutController::class, 'downloadReceipt'])->name('checkout.download');
 Route::get('/payment-steps', [FrontendController::class, 'paymentsteps'])->name('payment.steps');
 });
 

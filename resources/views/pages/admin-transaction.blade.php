@@ -25,6 +25,8 @@
     <link href="{{ url('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
     <link href="{{ url('assets/vendor/quill/quill.snow.css')}}" rel="stylesheet">
     <link href="{{ url('assets/vendor/quill/quill.bubble.css')}}" rel="stylesheet">
+    <link href="{{ url('assets/vendor/simple-datatables/style.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
 </head>
 
 <body>
@@ -104,7 +106,14 @@
                     <i class="bi bi-grid"></i>
                     <span>Dashboard</span>
                 </a>
-            </li><!-- End Dashboard Nav -->
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.transactions')}}">
+                  <i class="bi bi-credit-card"></i>
+                  <span>Transactions</span>
+                </a>
+              </li>
 
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
@@ -138,7 +147,7 @@
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <h1>Form Create</h1>
+            <h1>Transactions</h1>
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
@@ -147,58 +156,59 @@
                 </ol>
             </nav>
         </div><!-- End Page Title -->
-
-        <div class="container py-5">
-            <h1 class="mb-4 text-center">Admin Transactions</h1>
         
-            @if(session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
+        <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Transactions</h5>
+          
         
-            <div class="table-responsive">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>User</th>
-                            <th>Products</th>
-                            <th>Total Price</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($transactions as $trans)
-                            <tr>
-                                <td>{{ $trans->id }}</td>
-                                <td>{{ $trans->user->first_name }}</td>
-                                <td>
-                                    <ul>
-                                        @foreach($trans->transactionItems as $item)
-                                            <li>{{ $item->product->name_product }} ({{ $item->qty }})</li>
-                                        @endforeach
-                                    </ul>
-                                </td>
-                                <td>RP {{ number_format($trans->total_price, 0, ',', '.') }}</td>
-                                <td>{{ $trans->status }}</td>
-                                <td>
-                                    <form action="{{ route('admin.transactions.updateStatus', $trans->id) }}" method="POST">
-                                        @csrf
-                                        <select name="status" onchange="this.form.submit()">
-                                            <option value="PENDING" {{ $trans->status == 'PENDING' ? 'selected' : '' }}>Pending</option>
-                                            <option value="SUCCESSFULL" {{ $trans->status == 'SUCCESSFULL' ? 'selected' : '' }}>Successfull</option>
-                                            <option value="IN PROCESS" {{ $trans->status == 'IN PROCESS' ? 'selected' : '' }}>In Process</option>
-                                            <option value="SHIPPING" {{ $trans->status == 'SHIPPING' ? 'selected' : '' }}>Shipping</option>
-                                            <option value="ARRIVED" {{ $trans->status == 'ARRIVED' ? 'selected' : '' }}>Arrived</option>
-                                        </select>
-                                    </form>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+              <!-- Table with stripped rows -->
+              <table class="table datatable">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>User</th>
+                    <th>Products</th>
+                    <th>Total Price</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                  </tr>
+              </thead>
+        
+                  <tbody>
+                    @foreach($transactions as $trans)
+                    <tr>
+                        <td>{{ $trans->id }}</td>
+                        <td>{{ $trans->user->first_name }}</td>
+                        <td>
+                            <ul>
+                                @foreach($trans->transactionItems as $item)
+                                    <li>{{ $item->product->name_product }} ({{ $item->qty }})</li>
+                                @endforeach
+                            </ul>
+                        </td>
+                        <td>RP {{ number_format($trans->total_price, 0, ',', '.') }}</td>
+                        <td>{{ $trans->status }}</td>
+                        <td>
+                            <form action="{{ route('admin.transactions.updateStatus', $trans->id) }}" method="POST">
+                                @csrf
+                                <select name="status" onchange="this.form.submit()">
+                                    <option value="PENDING" {{ $trans->status == 'PENDING' ? 'selected' : '' }}>Pending</option>
+                                    <option value="SUCCESSFULL" {{ $trans->status == 'SUCCESSFULL' ? 'selected' : '' }}>Successfull</option>
+                                    <option value="IN PROCESS" {{ $trans->status == 'IN PROCESS' ? 'selected' : '' }}>In Process</option>
+                                    <option value="SHIPPING" {{ $trans->status == 'SHIPPING' ? 'selected' : '' }}>Shipping</option>
+                                    <option value="ARRIVED" {{ $trans->status == 'ARRIVED' ? 'selected' : '' }}>Arrived</option>
+                                </select>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            
+              </tbody>
+              </table>
+              <!-- End Table with stripped rows -->
+        
             </div>
         </div>
         
@@ -210,6 +220,10 @@
     <!-- Template Main JS File -->
     <script src="{{ url('assets/js/main.js') }}"></script>
     <script src="{{ url('assets/vendor/quill/quill.js')}}"></script>
+    <script src="{{ url('assets/vendor/simple-datatables/simple-datatables.js')}}"></script>
+    <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
 
 </body>
 
