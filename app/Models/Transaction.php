@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -17,9 +18,14 @@ class Transaction extends Model
         'id_address',
         'notes',
         'total_price',
+        'status'
     ];
     public function transactionItems(): HasMany
     {
         return $this->hasMany(TransactionItem::class, 'id_transaction');
+    }
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'id_user', 'id');
     }
 }

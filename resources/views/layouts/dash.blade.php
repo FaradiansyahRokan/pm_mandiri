@@ -101,13 +101,20 @@
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
-<li class="nav-item">
+      <li class="nav-item">
         @if(Auth::user() && Auth::user()->role == 'admin')
         <a class="nav-link " href="{{ route('dashboard')}}">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
-      </li><!-- End Dashboard Nav -->
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{{ route('admin.transactions')}}">
+          <i class="bi bi-credit-card"></i>
+          <span>Transactions</span>
+        </a>
+      </li>
 
      <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">

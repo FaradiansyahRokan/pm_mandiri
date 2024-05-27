@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminTransaction;
 use App\Http\Controllers\CategoryController;
 use App\Http\Middleware\AdminMiddleware;
 use Database\Seeders\AdminSeeder;
@@ -54,5 +55,7 @@ Route::middleware([AdminMiddleware::class])->group(function(){
     Route::delete('/dashboard/show/{id}' , [DashboardController::class , 'destroy'])->name('delete');
     Route::get('/dashboard/edit/{id}' , [DashboardController::class , 'edit'])->name('edit');
     Route::patch('/dashboard/edit/{id}' , [DashboardController::class , 'update'])->name('update');
+    Route::get('/dashboard/transactions', [AdminTransaction::class, 'showTransactions'])->name('admin.transactions');
+    Route::post('/dashboard/transactions/{transaction}/status', [AdminTransaction::class, 'updateTransactionStatus'])->name('admin.transactions.updateStatus');
   // اضف المنتجات             
 });

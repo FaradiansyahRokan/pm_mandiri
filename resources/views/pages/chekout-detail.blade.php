@@ -50,11 +50,11 @@
                 </div>
             </div>
 
-            <h3 class="mb-4 text-center">My Transactions</h3>
+            <h3 class="mb-4 text-center">My Ongoing Transactions</h3>
             
-            <div class="card shadow-sm">
+            <div class="card shadow-sm mb-5">
                 <div class="card-header text-black" style="background-color: #F9F1E7">
-                    <h3 class="mb-0">Transaction History</h3>
+                    <h3 class="mb-0">Ongoing Transactions</h3>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -69,17 +69,59 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($allTransactions as $trans)
+                                @foreach($ongoingTransactions as $trans)
                                     <tr>
                                         <td>{{ $trans->id }}</td>
                                         <td>
-                                            <ul style="list-style: ;">
+                                            <ul style="list-style: none;">
                                                 @foreach($trans->transactionItems as $item)
                                                     <li>{{ $item->product->name_product }} ({{ $item->qty }})</li>
                                                 @endforeach
                                             </ul>
                                         </td>
                                         <td>{{ $trans->created_at->format('d M Y H:i') }}</td>
+                                        <td>RP {{ number_format($trans->total_price, 0, ',', '.') }}</td>
+                                        <td><a href="{{ route('checkout.detail', $trans->id) }}" class="btn btn-primary btn-sm">View Details</a></td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="mb-4 text-center">My Transaction History</h3>
+            
+            <div class="card shadow-sm">
+                <div class="card-header text-black" style="background-color: #F9F1E7">
+                    <h3 class="mb-0">Transaction History</h3>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Transaction ID</th>
+                                    <th>Produk</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                    <th>Total Price</th>
+                                    <th>Details</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($completedTransactions as $trans)
+                                    <tr>
+                                        <td>{{ $trans->id }}</td>
+                                        <td>
+                                            <ul style="list-style: none;">
+                                                @foreach($trans->transactionItems as $item)
+                                                    <li>{{ $item->product->name_product }} ({{ $item->qty }})</li>
+                                                @endforeach
+                                            </ul>
+                                        </td>
+                                        <td>{{ $trans->created_at->format('d M Y H:i') }}</td>
+                                        <td>{{ $transaction->status}}</td>
                                         <td>RP {{ number_format($trans->total_price, 0, ',', '.') }}</td>
                                         <td><a href="{{ route('checkout.detail', $trans->id) }}" class="btn btn-primary btn-sm">View Details</a></td>
                                     </tr>

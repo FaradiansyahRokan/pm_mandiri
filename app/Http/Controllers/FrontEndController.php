@@ -149,12 +149,19 @@ class FrontendController extends Controller
         ->with('transactionItems.product')
         ->get();
     // dd($transaction);
+    $ongoingTransactions = $allTransactions->filter(function ($trans) {
+        return $trans->status !== 'ARRIVED';
+    });
+
+    $completedTransactions = $allTransactions->filter(function ($trans) {
+        return $trans->status === 'ARRIVED';
+    });
     session(['last_transaction_id' => $transaction->id]);
     if ($transaction->id_user !== Auth::id()) {
         return redirect()-> route('home', ['transaction' => $transaction->id]) ->withErrors(['error' => 'You do not have access to this transaction.']);
     }
 
-    return view('pages.chekout-detail', compact('transaction' , 'category' , 'user' , 'allTransactions'));
+    return view('pages.chekout-detail', compact('transaction' , 'category' , 'user' , 'allTransactions' , 'ongoingTransactions', 'completedTransactions'));
 }
 
     public function paymentsteps()
