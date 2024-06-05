@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('category_sizes', function (Blueprint $table) {
-            $table->id();
-            $table->string('list_size')->nullable();
-            $table->bigInteger('price')->nullable();
-            $table->softDeletes();
-            $table->timestamps();
+        Schema::table('carts', function (Blueprint $table) {
+            $table->unsignedBigInteger('id_size')->nullable();
+        $table->foreign('id_size')->references('id')->on('category_sizes');
         });
     }
 
@@ -25,6 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('category_sizes');
+        Schema::table('carts', function (Blueprint $table) {
+            $table->dropColumn('id_size');
+        });
     }
 };

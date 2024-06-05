@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('category_sizes', function (Blueprint $table) {
+        Schema::create('token_whatsapps', function (Blueprint $table) {
             $table->id();
-            $table->string('list_size')->nullable();
-            $table->bigInteger('price')->nullable();
-            $table->softDeletes();
+            $table->string('token_wa');
+            $table->string('target_wa');
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('category_sizes');
+        Schema::dropIfExists('token_whatsapps');
     }
 };

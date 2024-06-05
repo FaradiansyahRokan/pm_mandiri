@@ -12,7 +12,6 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('id_user');
             $table->unsignedBigInteger('id_product');
-            $table->bigInteger('total_price')->nullable();
             $table->bigInteger('qty');
             $table->softDeletes();
             $table->timestamps();

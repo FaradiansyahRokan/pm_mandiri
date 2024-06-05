@@ -9,8 +9,9 @@
     <div class="tex-content  d-flex align-items-top">
         <div class="pp">
             <h5>MAKARONI</h5>
-            <h3>CABAI MERAH</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem, recusandae quaerat. Voluptatem repellat in minima, ab architecto corrupti qui eum nisi ipsam iusto quod ipsa delectus optio, quibusdam rerum unde.</p>
+            <h3>Makaroni Kress</h3>
+            <p>Makaroni kress adalah menu best seller requestan customer di petingemil karena bisa dijadikan lauk apalagi nemenin ngemil sehari-hari. Kerenyahan mix bumbunya bisa ngga berhenti menyantap rasanya
+            </p>
         </div>
     </div>
 
@@ -26,8 +27,9 @@
     <div class="tex-content  d-flex align-items-top">
         <div class="pp">
             <h5>USUS KRISPI</h5>
-            <h3>CABAI MERAH</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem, recusandae quaerat. Voluptatem repellat in minima, ab architecto corrupti qui eum nisi ipsam iusto quod ipsa delectus optio, quibusdam rerum unde.</p>
+            <h3>Usus Krispi(y)</h3>
+            <p>Ususkripsi(y) adalah menu best seller di petingemil karena bisa dijadikan lauk apalagi nemenin ngemil sehari-hari. Skripsi karena lebih dari renyah dan rasa lebih ngeunahhhh
+            </p>
         </div>
     </div>
 
@@ -43,8 +45,9 @@
     <div class="tex-content  d-flex align-items-top">
         <div class="pp">
             <h5>BASRENG</h5>
-            <h3>CABAI MERAH</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem, recusandae quaerat. Voluptatem repellat in minima, ab architecto corrupti qui eum nisi ipsam iusto quod ipsa delectus optio, quibusdam rerum unde.</p>
+            <h3>Basreng Kripik</h3>
+            <p>Basreng Keripik adalah menu ke 2 yg launching dan menjadi ciri khas best seller di petingemil karena bisa dijadikan lauk apalagi nemenin ngemil sehari-hari. Cocok untuk dijadikan oleh oleh hampers juga lhooo
+            </p>
         </div>
     </div>
     <div class="image">
@@ -58,9 +61,10 @@
     <div class="container d-flex flex-row justify-content-evenly">
     <div class="tex-content  d-flex align-items-top">
         <div class="pp">
-            <h5>KRIPIK PISANG</h5>
+            <h5>KRIPIS</h5>
             <h3>COKLAT</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem, recusandae quaerat. Voluptatem repellat in minima, ab architecto corrupti qui eum nisi ipsam iusto quod ipsa delectus optio, quibusdam rerum unde.</p>
+            <p>Kripis adalah singkatan dari (kripik pisang) dengab varian rasa coklat khas petingemil merupakan menu best seller karena coklatnya yg manis dan tidak pahit aman di tenggorokan nyaman nemenin ngemil sehari-hari
+            </p>
         </div>
     </div>
     <div class="image">
@@ -74,10 +78,11 @@
     <div class="container d-flex flex-row justify-content-evenly">
     <div class="tex-content  d-flex align-items-top">
         <div class="pp">
-            <h5>KRIPIK PISANG</h5>
+            <h5>KRIPIS</h5>
             <h3>STRAWBERRY</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem, recusandae quaerat. Voluptatem repellat in minima, ab architecto corrupti qui eum nisi ipsam iusto quod ipsa delectus optio, quibusdam rerum unde.</p>
-        </div>
+            <p>Kripis adalah singkatan dari (kripik pisang) dengan varian rasa stroberi khas petingemil merupakan menu best seller ke 3 kripis karena rasanya manis dan segar aman di tenggorokan nyaman nemenin ngemil sehari-hari.
+            </p>
+          </div>
     </div>
     <div class="image">
         <img src="{{ url('images/strawberry.png')}}" alt="" class="img_car">
@@ -90,9 +95,11 @@
     <div class="container d-flex flex-row justify-content-evenly">
     <div class="tex-content  d-flex align-items-top">
         <div class="pp">
-            <h5>KRIPIK PISANG</h5>
+            <h5>KRIPIS</h5>
             <h3>TIRAMISU</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem, recusandae quaerat. Voluptatem repellat in minima, ab architecto corrupti qui eum nisi ipsam iusto quod ipsa delectus optio, quibusdam rerum unde.</p>
+            <p>Kripis adalah singkatan dari (kripik pisang) dengan varian rasa tiramisu khas petingemil merupakan menu best seller ke 2 di kripis. Cocok untuk pecinta kopi dan susu karena rasanya manis dan tidak pahit aman di tenggorokan nyaman nemenin ngemil sehari-hari
+
+            </p>
         </div>
     </div>
     <div class="image">
@@ -118,8 +125,14 @@
             <div class="product-landing">
                 <div class="content-text p-5">
                     <h5>PRODUCT</h5>
-                    <h1>Kripik</h1>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium voluptates repellendus necessitatibus maxime quis ullam, porro omnis ad eveniet nulla illo nostrum nemo delectus facere a officia neque dolores eum.</p>
+                    <h1>Peti Ngemil</h1>
+                    <p>Petingemil menawarkan berbagai camilan best seller yang lezat dan cocok untuk ngemil sehari-hari maupun sebagai lauk dan oleh-oleh. Produk unggulan mereka mencakup:
+
+                      Kripis (Kripik Pisang) Stroberi: Menu best seller ketiga dengan rasa manis dan segar yang nyaman di tenggorokan.
+                      Basreng Keripik: Menu best seller kedua yang menjadi ciri khas karena kelezatannya dan kemampuannya dijadikan lauk.
+                      Ususkripsi(y): Menu best seller utama yang terkenal karena kerenyahannya dan rasa yang lebih enak, cocok untuk ngemil dan sebagai lauk.
+                      Makaroni Kress: Menu best seller yang banyak diminta oleh pelanggan, dikenal dengan kerenyahannya dan kombinasi bumbu yang membuat ketagihan.
+                      Semua produk ini menjadikan Petingemil pilihan yang tepat untuk ngemil enak dan praktis setiap hari.</p>
                 </div>
             </div>
         </div>
@@ -138,7 +151,9 @@
                 <div class="product_list text-center">
                     <div class="content_title">
                         <h2>Product</h2>
-                        <p class="mt-3">Lorem, ipsum dolor sit amet consectetur adipisicing elit. At, quasi voluptas ipsum corporis.</p>
+                        <p class="mt-3">
+                          Penasaran Dengan Produk-Produk Kita? , Yuk Tinggal Explore product kita di Bawah ini!!
+                      </p>
                     </div>
                 </div>
             </div>
@@ -158,7 +173,7 @@
         </div>
         <div class="card-body">
           <h5 class="card-title fw-bold fs-5">{{ $product->name_product }}</h5>
-          <p class="card-text mt-2 fs-5">Rp. {{  number_format($product->price, 0, ',', '.')}}</p>
+          <p class="card-text mt-2 fs-5">Rp. {{  number_format($product->categorySize->price, 0, ',', '.')}}</p>
           
         </div>
       </div>

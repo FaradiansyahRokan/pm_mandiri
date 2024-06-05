@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->string('name_product');
             $table->longText('description_product');
-            $table->bigInteger('price');
             $table->bigInteger('qty');
             $table->string('image_product');
             $table->softDeletes();

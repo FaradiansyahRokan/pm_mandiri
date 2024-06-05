@@ -1,77 +1,3 @@
-{{-- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Receipt</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-        }
-        h1 {
-            text-align: center;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        table, th, td {
-            border: 1px solid #ddd;
-        }
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-        .total {
-            text-align: right;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Receipt</h1>
-        <p><strong>Name:</strong> {{ $transaction->user->first_name }} {{ $transaction->user->last_name }}</p>
-        <p><strong>Address:</strong> {{ $address->city }}, {{ $address->province }}, {{ $address->district }}, {{ $address->detail }}, {{ $transaction->address_type }}</p>
-        <p><strong>Date:</strong> {{ $transaction->created_at->format('d M Y H:i') }}</p>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Product</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Total</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($transaction->transactionItems as $item)
-                    <tr>
-                        <td>{{ $item->product->id }}</td>
-                        <td>{{ $item->product->name_product }}</td>
-                        <td>{{ $item->qty }}</td>
-                        <td>RP {{ number_format($item->price, 0, ',', '.') }}</td>
-                        <td>RP {{ number_format($item->price * $item->qty, 0, ',', '.') }}</td>
-                    </tr>
-                @endforeach
-                <tr>
-                    <td colspan="4" class="total"><strong>Total:</strong></td>
-                    <td><strong>RP {{ number_format($transaction->transactionItems->sum(function($item) { return $item->price * $item->qty; }), 0, ',', '.') }}</strong></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</body>
-</html> --}}
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -132,7 +58,6 @@
 <body>
     <div class="container">
         <div class="header">
-            {{-- <img src="{{ asset('../images/logo.png')}}" alt="Peti Ngemil"> --}}
             <h2>Peti Ngemil</h2>
             <h3>RECEIPT</h3>
         </div>
@@ -164,8 +89,13 @@
             </tbody>
             <tfoot>
                 <tr>
+                    <td colspan="4">ONGKIR</td>
+                    <td>{{ number_format($transaction->ongkir, 0, ',', '.') }}</td>
+                </tr>
+                <tr>
                     <td colspan="4">TOTAL</td>
-                    <td>{{ number_format($transaction->transactionItems->sum(function($item) { return $item->price * $item->qty; }), 0, ',', '.') }}</td>
+                    <td>RP {{ number_format($transaction->total_price, 0, ',', '.') }}</td>
+
                 </tr>
             </tfoot>
         </table>

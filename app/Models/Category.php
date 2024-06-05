@@ -12,7 +12,7 @@ class Category extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'list_size', 'list_flavour', 'list_menu'
+        'list_size', 'list_flavour', 'list_menu', 'price'
     ];
 
     public function products(): HasOne

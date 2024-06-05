@@ -38,6 +38,7 @@ class CategoryController extends Controller
         ];
         $dataCategorySizes = [
             'list_size' => $request->input('list_size'),
+            'price' => $request->input('price'),
         ];
 
         CategoryFlavour::create($dataCategoryFlavour);

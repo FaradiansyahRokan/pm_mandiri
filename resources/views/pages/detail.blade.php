@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="container-fluid luar">
     <div class="main product d-flex align-items-center justify-content-evenly flex-wrap">
         <div class="product-image">
@@ -12,7 +13,7 @@
                     <h1 class="product-title fw-bold">{{ $products->name_product }}</h1>
                     <div class="product-desc">
                         <h3 class="mt-4 fs-3">{{ $products->description_product }}</h3>
-                        <h1 class="product-price fw-bold mt-5" style="font-size: 50px;">RP {{ number_format($products->price, 0, ',', '.') }}</h1>
+                        <h1 class="product-price fw-bold mt-5" style="font-size: 50px;">RP {{ number_format($categorySize->price, 0, ',', '.') }}</h1>
                     </div>
                 </div>
                 <div class="product-select mt-5">
@@ -24,6 +25,13 @@
                                     <button type="submit" class="btn btn-lg btn-block text-dark fw-bold shadow p-2 bg-body-tertiary rounded" style="background-color: #DBD3CD;">
                                         + Add to cart
                                     </button>
+                                    {{-- <select name="id_size" onchange="this.form.submit()">
+                                        @foreach ($categorySize as $size)
+                                            <option value="{{ $size->id }}" {{ $item->id_size == $size->id ? 'selected' : '' }}>
+                                                {{ strtoupper(str_replace('-', ' ', $size->list_size)) }} - RP {{ number_format($size->price, 0, ',', '.') }}
+                                            </option>
+                                        @endforeach
+                                    </select> --}}
                                 </form>
                             </div>
                         </div>

@@ -53,7 +53,7 @@
 
                   <div class="pt-4 pb-2">
                     <div class="d-flex justify-content-center">
-                      <img src="{{ asset('assets/img/Register.png') }}" alt="Register Image" class="img-fluid">
+                      <img src="{{ asset('assets/img/Login.png') }}" alt="Login Image" class="img-fluid">
                     </div>
                     <p class="text-center small">Enter your username & password to login</p>
                   </div>

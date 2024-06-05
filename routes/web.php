@@ -9,9 +9,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProfileController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -33,11 +31,17 @@ Route::put('/profile/{id}', [ProfileController::class, 'update'])->name('profile
 Route::post('/cart/add/{id}', [FrontendController::class, 'cartAdd'])->name('cart.add');
 Route::post('/cart/delete/{id}', [FrontendController::class, 'cartDelete'])->name('cart.delete');
 Route::post('/cart/update/{id}', [FrontendController::class, 'updateCart'])->name('cart.update');
+Route::post('/cart/update-size/{id}', [FrontendController::class, 'updateSize'])->name('cart.updateSize');
+
 Route::get('/cart', [FrontendController::class, 'showCart'])->name('cart');
 Route::post('/checkout', [FrontendController::class, 'checkout'])->name('checkout');
 Route::post('/checkout/contact', [FrontendController::class, 'sendreceipt'])->name('checkout.contact');
 Route::get('/checkout/{transaction}', [FrontendController::class, 'showCheckoutDetail'])->name('checkout.detail');
+Route::post('/checkout/request-ongkir/', [FrontendController::class, 'requestOngkir'])->name('checkout.requestOngkir');
+
 Route::get('/checkout/download/{transaction}', [CheckoutController::class, 'downloadReceipt'])->name('checkout.download');
+
+// Route::post('/admin/transactions/addShippingCost', [FrontendController::class, 'addShippingCost'])->name('admin.transactions.addShippingCost');
 Route::get('/payment-steps', [FrontendController::class, 'paymentsteps'])->name('payment.steps');
 });
 
@@ -60,5 +64,11 @@ Route::middleware([AdminMiddleware::class])->group(function(){
     Route::patch('/dashboard/edit/{id}' , [DashboardController::class , 'update'])->name('update');
     Route::get('/dashboard/transactions', [AdminTransaction::class, 'showTransactions'])->name('admin.transactions');
     Route::post('/dashboard/transactions/{transaction}/status', [AdminTransaction::class, 'updateTransactionStatus'])->name('admin.transactions.updateStatus');
+    Route::get('/admin/transactions/detail/{id}', [AdminTransaction::class, 'detailIndex'])->name('admin.transaction.detail');
+    Route::post('/admin/transactions/add/{id}', [AdminTransaction::class, 'add'])->name('admin.transactions.add');
+    Route::get('admin/transactions/{id}/pdf', [AdminTransaction::class, 'exportPdf'])->name('admin.transactions.exportPdf');
+
+
+
   // اضف المنتجات             
 });

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->text('notes')->nullable();
             $table->integer('total_price');
             $table->string('status')->default('PENDING');
+            $table->integer('ongkir')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

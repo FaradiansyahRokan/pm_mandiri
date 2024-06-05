@@ -16,7 +16,8 @@ class CategoryMenu extends Model
         'list_menu'
     ];
 
-    public function productMenu(): BelongsTo {
-        return $this->belongsTo(Product::class, 'id_category_menu', 'id');
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'id_category_menu', 'id');
     }
 }

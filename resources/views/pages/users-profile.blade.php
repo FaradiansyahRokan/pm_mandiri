@@ -3,6 +3,17 @@
 @section('dashboard')
     
 
+<div class="container">
+  @if(session('alert'))
+      <div class="alert alert-warning">
+          {{ session('alert') }}
+      </div>
+  @endif
+  
+  <!-- Konten halaman profil Anda -->
+</div>
+
+
 <div class="pagetitle">
   <h1>Profile</h1>
   <nav>
@@ -48,10 +59,6 @@
             </li>
 
             <li class="nav-item">
-              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-settings">Settings</button>
-            </li>
-
-            <li class="nav-item">
               <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
             </li>
 
@@ -59,20 +66,12 @@
           <div class="tab-content pt-2">
 
             <div class="tab-pane fade show active profile-overview" id="profile-overview">
-              <h5 class="card-title">About</h5>
-              <p class="small fst-italic">Sunt est soluta temporibus accusantium neque nam maiores cumque temporibus. Tempora libero non est unde veniam est qui dolor. Ut sunt iure rerum quae quisquam autem eveniet perspiciatis odit. Fuga sequi sed ea saepe at unde.</p>
-
+              
               <h5 class="card-title">Profile Details</h5>
 
               <div class="row">
                 <div class="col-lg-3 col-md-4 label ">Full Name</div>
                 <div class="col-lg-9 col-md-8">{{ $user->fullName}}</div>
-              </div>
-
-  
-              <div class="row">
-                <div class="col-lg-3 col-md-4 label">Country</div>
-                <div class="col-lg-9 col-md-8">USA</div>
               </div>
 
               <div class="row">
@@ -125,7 +124,7 @@
                   @endif
                     <div class="pt-2">
                       <input id="image_profile" class="form-control @error('image_profile') is-invalid @enderror" name="image_profile"
-                                            value="{{ old('image_profile') }}" required autocomplete="image_profile" type="file">
+                                            value="{{ old('image_profile') }}" autocomplete="image_profile" type="file">
                     </div>
                   </div>
 
@@ -156,19 +155,12 @@
                 </div>
 
                 <div class="row mb-3">
-                  <label for="Country" class="col-md-4 col-lg-3 col-form-label">Country</label>
-                  <div class="col-md-8 col-lg-9">
-                    <input name="country" type="text" class="form-control" id="Country" value="USA">
-                  </div>
-                </div>
-
-                <div class="row mb-3">
                   <label for="phone_number" class="col-md-4 col-lg-3 col-form-label">Phone Number</label>
                   <div class="col-md-8 col-lg-9">
                     @if($user->phone_number === null) 
                     <input name="phone_number" type="text" class="form-control" id="phone_number" value="">
                     @else
-                    <input name="phone_number" type="text" class="form-control" id="phone_number" value="{{ $user->phone_number }}">
+                    <input name="phone_number" type="number" class="form-control" id="phone_number" value="{{ $user->phone_number }}">
                     @endif
                   </div>
                 </div>
@@ -177,7 +169,7 @@
                   <label for="city" class="col-md-4 col-lg-3 col-form-label">City</label>
                   <div class="col-md-8 col-lg-9">
                     {{-- @if($address->city === null || $address === null) --}}
-                    <input name="city" type="text" class="form-control" id="city" value="">
+                    <input name="city" type="text" class="form-control" id="city" value="{{ $address ? $address->city : '' }}">
                     {{-- @else
                     <input name="city" type="text" class="form-control" id="city" value="{{ $address->city }}">
                     @endif --}}
@@ -188,7 +180,7 @@
                   <label for="province" class="col-md-4 col-lg-3 col-form-label">Province</label>
                   <div class="col-md-8 col-lg-9">
                     {{-- @if($address->province === null || $address === null) --}}
-                    <input name="province" type="text" class="form-control" id="province" value="">
+                    <input name="province" type="text" class="form-control" id="province" value="{{ $address ? $address->province : '' }}">
                     {{-- @else
                     <input name="province" type="text" class="form-control" id="province" value="{{ $address->province }}">
                     @endif --}}
@@ -199,7 +191,7 @@
                   <label for="district" class="col-md-4 col-lg-3 col-form-label">District</label>
                   <div class="col-md-8 col-lg-9">
                     {{-- @if($address->district === null || $address === null) --}}
-                    <input name="district" type="text" class="form-control" id="district" value="">
+                    <input name="district" type="text" class="form-control" id="district" value="{{ $address ? $address->district : '' }}">
                     {{-- @else
                     <input name="district" type="text" class="form-control" id="district" value="{{ $address->district }}">
                     @endif --}}
@@ -210,7 +202,7 @@
                   <label for="sub_district" class="col-md-4 col-lg-3 col-form-label">Sub District</label>
                   <div class="col-md-8 col-lg-9">
                     {{-- @if($address->sub_district === null || $address === null) --}}
-                    <input name="sub_district" type="text" class="form-control" id="sub_district" value="">
+                    <input name="sub_district" type="text" class="form-control" id="sub_district" value="{{ $address ? $address->sub_district : '' }}">
                     {{-- @else
                     <input name="sub_district" type="text" class="form-control" id="sub_district" value="{{ $address->sub_district }}">
                     @endif --}}
@@ -221,7 +213,7 @@
                   <label for="detail" class="col-md-4 col-lg-3 col-form-label">Detail</label>
                   <div class="col-md-8 col-lg-9">
                     {{-- @if( $address->detail === null || $address === null) --}}
-                    <input name="detail" type="text" class="form-control" id="detail" value="">
+                    <input name="detail" type="text" class="form-control" id="detail" value="{{ $address ? $address->detail : '' }}">
                     {{-- @else
                     <input name="detail" type="text" class="form-control" id="detail" value="{{  $address->detail }}">
                     @endif --}}
@@ -234,7 +226,7 @@
                   <label for="address_type" class="col-md-4 col-lg-3 col-form-label">Address Type</label>
                   <div class="col-md-8 col-lg-9">
                     {{-- @if( $address->address_type === null || $address === null) --}}
-                    <input name="address_type" type="text" class="form-control" id="address_type" value="">
+                    <input name="address_type" type="text" class="form-control" id="address_type" value="{{ $address ? $address->address_type : '' }}">
                     {{-- @else
                     <input name="address_type" type="text" class="form-control" id="address_type" value="{{  $address->address_type }}">
                     @endif --}}
@@ -247,54 +239,28 @@
                     <input name="email" type="email" class="form-control" id="email" value="{{ $user->email}}">
                   </div>
                 </div>
+                
+                @if($user->role == 'admin')
+                <div class="row mb-3">
+                  <label for="token_wa" class="col-md-4 col-lg-3 col-form-label"><a href="http://fonnte.com">Whatsapp Token</a></label>
+                  <div class="col-md-8 col-lg-9">
+                    <input name="token_wa" type="text" class="form-control" id="token_wa" value="{{ $token ? $token->token_wa : '' }}">
+                  </div>
+                </div>
+                <div class="row mb-3">
+                  <label for="target_wa" class="col-md-4 col-lg-3 col-form-label">Target Whatsapp</label>
+                  <div class="col-md-8 col-lg-9">
+                    <input name="target_wa" type="text" class="form-control" id="target_wa" value="{{ $token ? $token->target_wa : '' }}">
+
+                  </div>
+                </div>
+                @endif
 
                 <div class="text-center">
                   <button type="submit" class="btn btn-primary">Save Changes</button>
                 </div>
                 {{-- <input type="hidden" name="_token" value="{{ csrf_token() }}" /> --}}
               </form><!-- End Profile Edit Form -->
-
-            </div>
-
-            <div class="tab-pane fade pt-3" id="profile-settings">
-
-              <!-- Settings Form -->
-              <form>
-
-                <div class="row mb-3">
-                  <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Email Notifications</label>
-                  <div class="col-md-8 col-lg-9">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="changesMade" checked>
-                      <label class="form-check-label" for="changesMade">
-                        Changes made to your account
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="newProducts" checked>
-                      <label class="form-check-label" for="newProducts">
-                        Information on new products and services
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="proOffers">
-                      <label class="form-check-label" for="proOffers">
-                        Marketing and promo offers
-                      </label>
-                    </div>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="securityNotify" checked disabled>
-                      <label class="form-check-label" for="securityNotify">
-                        Security alerts
-                      </label>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="text-center">
-                  <button type="submit" class="btn btn-primary">Save Changes</button>
-                </div>
-              </form><!-- End settings Form -->
 
             </div>
 

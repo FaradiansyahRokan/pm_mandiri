@@ -35,7 +35,7 @@
     <header id="header" class="header fixed-top d-flex align-items-center">
 
         <div class="d-flex align-items-center justify-content-between">
-            <a href="{{ route('home')}}" class="logo d-flex align-items-center">
+            <a href="{{ route('home')}}" class="logo d-flex align-items-center" style="text-decoration: none">
                 <img src="assets/img/logo.png" alt="">
                 <span class="d-none d-lg-block">Peti Ngemil</span>
             </a>
@@ -100,48 +100,86 @@
     <aside id="sidebar" class="sidebar">
 
         <ul class="sidebar-nav" id="sidebar-nav">
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('dashboard') }}">
-                    <i class="bi bi-grid"></i>
-                    <span>Dashboard</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('admin.transactions')}}">
-                  <i class="bi bi-credit-card"></i>
-                  <span>Transactions</span>
-                </a>
-              </li>
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-menu-button-wide"></i><span>Product</span><i class="bi bi-chevron-down ms-auto"></i>
-                </a>
-                <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                    <li>
-                        <a href="{{ route('product') }}">
-                            <i class="bi bi-circle"></i><span>Create</span>
-                        </a>
-                    </li>
-                </ul>
-            </li><!-- End Components Nav -->
-
-
+    
+          <li class="nav-item">
+            @if(Auth::user() && Auth::user()->role == 'admin')
+            <a class="nav-link " href="{{ route('dashboard')}}">
+              <i class="bi bi-grid"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+    
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('admin.transactions')}}">
+              <i class="bi bi-credit-card"></i>
+              <span>Transactions</span>
+            </a>
+          </li>
+    
+         <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-menu-button-wide"></i><span>Product</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="{{ route('product')}}">
+                        <i class="bi bi-circle"></i><span>Create Product</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('category')}}">
+                        <i class="bi bi-circle"></i><span>Add Category</span>
+                    </a>
+                </li>
+            </ul>
             <li class="nav-heading">Pages</li>
-
+    
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('profile') }}">
+                <i class="bi bi-person"></i>
+                <span>Profile</span>
+            </a>
+        </li><!-- End Profile Page Nav -->
+            @else
+    
             <li class="nav-item">
-                <a class="nav-link collapsed" href="users-profile.html">
-                    <i class="bi bi-person"></i>
-                    <span>Profile</span>
-                </a>
-            </li><!-- End Profile Page Nav -->
-
-
+              <a class="nav-link " href="{{ route('home')}}">
+                <i class="ri-handbag-line"></i>
+                <span>Home</span>
+              </a>
+            </li><!-- End Dashboard Nav -->
+            
+                  <li class="nav-heading">Pages</li>
+            
+                  <li class="nav-item">
+                    <a class="nav-link collapsed" href="{{ route('profile') }}">
+                        <i class="bi bi-person"></i>
+                        <span>Profile</span>
+                    </a>
+                </li><!-- End Profile Page Nav -->
+    
+        @endif
+    </li><!-- End Components Nav -->
+    
+    
+          {{-- <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('profile', auth()->user()->id) }}">
+                <i class="bi bi-person"></i>
+                <span>Profile</span>
+            </a>
+        </li><!-- End Profile Page Nav --> --}}
+        
+    
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="pages-login.html">
+              <i class="bi bi-box-arrow-in-right"></i>
+              <span>Login</span>
+            </a>
+          </li><!-- End Login Page Nav -->
+    
         </ul>
-
-    </aside><!-- End Sidebar-->
+    
+      </aside><!-- End Sidebar-->
 
 
     <main id="main" class="main">
@@ -150,7 +188,7 @@
             <h1>Transactions</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}" style="text-decoration: none">Home</a></li>
                     <li class="breadcrumb-item">Product</li>
                     <li class="breadcrumb-item active">Transactions</li>
                 </ol>
@@ -159,60 +197,58 @@
         
         <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Transactions</h5>
-          
+                <h5 class="card-title">Transactions</h5>
         
-              <!-- Table with stripped rows -->
-              <table class="table datatable">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>User</th>
-                    <th>Products</th>
-                    <th>Total Price</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                  </tr>
-              </thead>
-        
-                  <tbody>
-                    @foreach($transactions as $trans)
-                    <tr>
-                        <td>{{ $trans->id }}</td>
-                        <td>{{ $trans->user->first_name }}</td>
-                        <td>
-                            <ul>
-                                @foreach($trans->transactionItems as $item)
-                                    <li>{{ $item->product->name_product }} ({{ $item->qty }})</li>
-                                @endforeach
-                            </ul>
-                        </td>
-                        <td>RP {{ number_format($trans->total_price, 0, ',', '.') }}</td>
-                        <td>{{ $trans->status }}</td>
-                        <td>
-                            <form action="{{ route('admin.transactions.updateStatus', $trans->id) }}" method="POST">
-                                @csrf
-                                <select name="status" onchange="this.form.submit()">
-                                    <option value="PENDING" {{ $trans->status == 'PENDING' ? 'selected' : '' }}>Pending</option>
-                                    <option value="SUCCESSFULL" {{ $trans->status == 'SUCCESSFULL' ? 'selected' : '' }}>Successfull</option>
-                                    <option value="IN PROCESS" {{ $trans->status == 'IN PROCESS' ? 'selected' : '' }}>In Process</option>
-                                    <option value="SHIPPING" {{ $trans->status == 'SHIPPING' ? 'selected' : '' }}>Shipping</option>
-                                    <option value="ARRIVED" {{ $trans->status == 'ARRIVED' ? 'selected' : '' }}>Arrived</option>
-                                </select>
-                            </form>
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-            
-              </tbody>
-              </table>
-              <!-- End Table with stripped rows -->
-        
+                <!-- Table with stripped rows -->
+                <table class="table datatable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>User</th>
+                            <th>Products</th>
+                            <th>Total Price</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                            <th>Details</th> <!-- Added this line -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($transactions as $trans)
+                        <tr>
+                            <td>{{ $trans->id }}</td>
+                            <td>{{ $trans->user->first_name }}</td>
+                            <td>
+                                <ul>
+                                    @foreach($trans->transactionItems as $item)
+                                        <li>{{ $item->product->name_product }} ({{ $item->qty }})</li>
+                                    @endforeach
+                                </ul>
+                            </td>
+                            <td>RP {{ number_format($trans->total_price, 0, ',', '.') }}</td>
+                            <td>{{ $trans->status }}</td>
+                            <td>
+                                <form action="{{ route('admin.transactions.updateStatus', $trans->id) }}" method="POST">
+                                    @csrf
+                                    <select name="status" onchange="this.form.submit()">
+                                        <option value="PENDING" {{ $trans->status == 'PENDING' ? 'selected' : '' }}>Pending</option>
+                                        <option value="SUCCESSFULL" {{ $trans->status == 'SUCCESSFULL' ? 'selected' : '' }}>Successful</option>
+                                        <option value="IN PROCESS" {{ $trans->status == 'IN PROCESS' ? 'selected' : '' }}>In Process</option>
+                                        <option value="SHIPPING" {{ $trans->status == 'SHIPPING' ? 'selected' : '' }}>Shipping</option>
+                                        <option value="ARRIVED" {{ $trans->status == 'ARRIVED' ? 'selected' : '' }}>Arrived</option>
+                                    </select>
+                                </form>
+                            </td>
+                            <td>
+                                <a href="{{ route('admin.transaction.detail', $trans->id) }}"><button class="btn btn-primary">Detail</button></a>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                    
+                </table>
+                <!-- End Table with stripped rows -->
             </div>
         </div>
-        
-
     </main><!-- End #main -->
 
     <!-- ======= Footer ======= -->
@@ -224,6 +260,8 @@
     <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 
 </body>
 

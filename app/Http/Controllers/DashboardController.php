@@ -60,6 +60,7 @@ class DashboardController extends Controller
     public function show(string $id)
     {
         $showData =  Product::findOrfail($id);
+
         return view('pages.show' , compact('showData'));
     }
 
@@ -88,7 +89,6 @@ class DashboardController extends Controller
         $product->update([
             'name_product' => $validatedData['name_product'],
             'description_product' => $validatedData['description_product'],
-            'price' => $validatedData['price'],
             'qty' => $validatedData['qty'],
             'id_category_flavour' => $validatedData['id_category_flavour'],
             'id_category_size' => $validatedData['id_category_size'],

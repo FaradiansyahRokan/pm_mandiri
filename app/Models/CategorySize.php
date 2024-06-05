@@ -13,10 +13,11 @@ class CategorySize extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'list_size'
+        'list_size',
+        'price'
     ];
 
-    public function productSize(): BelongsTo {
-        return $this->belongsTo(Product::class, 'id_category_size', 'id');
+    public function productSize(): HasOne {
+        return $this->hasOne(Product::class, 'id_category_size', 'id');
     }
 }

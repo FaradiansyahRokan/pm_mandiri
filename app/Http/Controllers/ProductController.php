@@ -23,9 +23,8 @@ class ProductController extends Controller
     {
 
         $list_menu = CategoryMenu::where('list_menu', $list_menu)->first();
-
         $sortCategory = Product::where('id_category_menu', $list_menu->id)->get();
-        $category = CategoryMenu::all(); 
+        $category = CategoryMenu::all();
         $user = User::find(auth()->id());
 
 
@@ -58,24 +57,12 @@ class ProductController extends Controller
         $dataProduct = [
             'name_product' => $request->input('name_product'),
             'description_product' => $request->input('description_product'),
-            'price' => $request->input('price'),
             'qty' => $request->input('qty'),
             'id_category_flavour' => $request->input('id_category_flavour'),
             'id_category_size' => $request->input('id_category_size'),
             'id_category_menu' => $request->input('id_category_menu'),
             // 'image_product' => $request->file('image_product')->store('public/gallery'),
         ];
-
-        
-        // dd($request);
-        
-        // $dataProduct = new Product();
-        
-        // $dataProduct->name = $request->name;
-        // $dataProduct->category = $request->category;
-        // $dataProduct->price = $request->price;
-        // $dataProduct->qty = $request->qty;
-        // $dataProduct->description = $request->description;
         
         if ($request->hasFile('image_product')){
             // $image = $request->file('image');

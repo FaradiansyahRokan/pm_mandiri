@@ -14,20 +14,20 @@ class Product extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'name_product', 'description_product', 'price', 'qty', 'image_product', 'id_category_flavour', 'id_category_size', 'id_category_menu'
+        'name_product', 'description_product', 'qty', 'image_product', 'id_category_flavour', 'id_category_size', 'id_category_menu'
     ];
 
-    public function categoryFlavour(): HasMany
+    public function categoryFlavour(): BelongsTo
     {
-        return $this->hasMany(CategoryFlavour::class, 'id_category_flavour', 'id');
+        return $this->belongsTo(CategoryFlavour::class, 'id_category_flavour', 'id');
     }
-    public function categoryMenu(): HasOne
+    public function categoryMenu()
     {
-        return $this->hasOne(CategoryMenu::class, 'id_category_menu', 'id');
+        return $this->belongsTo(CategoryMenu::class, 'id_category_menu', 'id');
     }
-    public function categorySize(): HasOne
+    public function categorySize()
     {
-        return $this->hasOne(CategorySize::class, 'id_category_size', 'id');
+        return $this->belongsTo(CategorySize::class, 'id_category_size', 'id');
     }
     public function carts(): HasMany
     {

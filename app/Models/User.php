@@ -22,11 +22,11 @@ class User extends Authenticatable
         'first_name',
         'last_name',
         'phone_number',
-        'gender',
-        'birth_date',
         'email',
         'password',
-        'image_profile'
+        'image_profile',
+        'wa_token',
+        'target_wa'
     ];
 
 

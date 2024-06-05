@@ -23,7 +23,7 @@
                     </div>
                     <div class="card-body">
                       <h5 class="card-title fw-bold fs-5">{{ $product->name_product }}</h5>
-                      <p class="card-text mt-2 fs-5">Rp. {{  number_format($product->price, 0, ',', '.')}}</p>
+                      <p class="card-text mt-2 fs-5">Rp. {{  number_format($product->categorySize->price, 0, ',', '.')}}</p>
                     </div>
                   </div>
                 </a>

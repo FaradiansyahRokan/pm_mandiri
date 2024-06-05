@@ -56,7 +56,6 @@
                   @endphp
                   {{ $categorySize->list_size ?? '' }}
               </td>
-                {{-- <td>{{ $product->price }}</td> --}}
                 <td>{{ $product->qty }}</td>
                 <td><a href="{{ route('show-product' , $product->id)}}" class="btn btn-primary">LIHAT PRODUK</a></td>
             </tr>

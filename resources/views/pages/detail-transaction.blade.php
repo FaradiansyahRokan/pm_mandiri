@@ -25,6 +25,8 @@
     <link href="{{ url('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
     <link href="{{ url('assets/vendor/quill/quill.snow.css')}}" rel="stylesheet">
     <link href="{{ url('assets/vendor/quill/quill.bubble.css')}}" rel="stylesheet">
+    <link href="{{ url('assets/vendor/simple-datatables/style.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
 </head>
 
 <body>
@@ -33,7 +35,7 @@
     <header id="header" class="header fixed-top d-flex align-items-center">
 
         <div class="d-flex align-items-center justify-content-between">
-            <a href="{{ route('home')}}" class="logo d-flex align-items-center">
+            <a href="{{ route('home')}}" class="logo d-flex align-items-center" style="text-decoration: none">
                 <img src="assets/img/logo.png" alt="">
                 <span class="d-none d-lg-block">Peti Ngemil</span>
             </a>
@@ -183,46 +185,64 @@
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <h1>Product Detail</h1>
+            <h1>Transactions</h1>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}" style="text-decoration: none">Home</a></li>
                     <li class="breadcrumb-item">Product</li>
-                    <li class="breadcrumb-item active">Produk</li>
+                    <li class="breadcrumb-item">Transactions</li>
+                    <li class="breadcrumb-item active">Detail</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
 
-        <section>
-            @if($showData)
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Detail</h5>
-                    <h4><b>Nama Produk:</b> {{ $showData->name_product }}</h4>
-                    <h4><b>Deskripsi Produk:</b> {{ $showData->description_product }}</h4>
-                    <h4><b>Harga Produk:</b> {{  number_format($showData->categorySize->price, 0, ',', '.') }}</h4>
-                    <h4><b>Produk Tersedia:</b> {{ $showData->qty }}</h4>
-                    <h4><b>Gambar Produk:</b></h4>
-                    <img src="{{ asset( $showData->image_product) }}" alt="Product Image" width="200px">
-                </div>
-            </div>
-        @else
-            <p>Data produk tidak ditemukan.</p>
-        @endif
         
-        <div class="tombol d-flex">
-            <a href="{{ route('edit' , $showData->id)}}" class="btn btn-dark m-1">EDIT</a>
-            <form action="{{ route('delete', $showData->id) }}" method="POST">
-                @method('delete')
-                @csrf
-                <button type="submit" class="btn btn-danger m-1">DELETE</button>
-            </form>
-        </div>
-        
-        
-        </section>
-        
+<div class="container">
+    <h1>Checkout</h1>
 
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Detail</th>
+                    <th>Total Harga</th>
+                    <th>Ongkir</th>
+                    <th>Berat</th>
+                </tr>
+            </thead>
+            
+            {{-- @foreach ($transactionItems as $transactionItem) --}}
+            <form action="{{ route('admin.transactions.add', $dataTransaction->id) }}" method="POST">
+                @csrf
+            <tbody>
+                <tr>
+                    <td>Nama : {{$user->fullName}}, <br> Alamat : {{$formattedAddress }} <br>  No. Telepon : {{$user->phone_number}} <br>
+                        
+                        Barang : 
+                        @foreach($dataTransaction->transactionItems as $item)
+                            {{$item->product->name_product}},
+                            @endforeach
+                            
+                            <br> Notes : {{ $dataTransaction->notes }}</td>
+                            <td>
+                                <p>RP {{ number_format($dataTransaction->total_price, 0, ',', '.') }}</p>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <input type="number" name="ongkir" value="" min="1" class="form-control" style="width: 100px;" oninput="updateTotalPrice({{ $dataTransaction->total_price }})">
+                                    <button type="submit" class="btn btn-primary">Tambahkan</button>
+                                </div>
+                            </td>
+                        </tr>
+                        {{-- @endforeach --}}
+                    </tbody>            
+                </form>
+        </table>
+    </div>
+    <a href="{{ route('admin.transactions.exportPdf', $dataTransaction->id) }}" class="btn btn-primary">Print PDF</a>
+</div>
+        
+        
     </main><!-- End #main -->
 
     <!-- ======= Footer ======= -->
@@ -230,9 +250,29 @@
     <!-- Template Main JS File -->
     <script src="{{ url('assets/js/main.js') }}"></script>
     <script src="{{ url('assets/vendor/quill/quill.js')}}"></script>
-    <script src="{{ url('assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{ url('assets/vendor/simple-datatables/simple-datatables.js')}}"></script>
+    <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+
+<script>
+    function updateTotalPrice(totalPrice) {
+        var ongkir = document.querySelector('input[name="ongkir"]').value;
+        var totalPriceWithOngkir = totalPrice + parseFloat(ongkir);
+        document.getElementById('totalPriceWithOngkir').textContent = new Intl.NumberFormat('id-ID').format(totalPriceWithOngkir);
+    }
+    </script>
 
 </body>
 
 </html>
+
+
+
+
+
+
+
 

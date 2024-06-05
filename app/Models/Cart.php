@@ -12,7 +12,7 @@ class Cart extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'id_user', 'id_product', 'qty'
+        'id_user', 'id_product', 'qty', 'id_size'
     ];
 
     public function product(): BelongsTo
@@ -24,5 +24,10 @@ class Cart extends Model
     {
         return $this->belongsTo(User::class, 'id_user', 'id');
     }
+
+    public function size():BelongsTo
+{
+    return $this->belongsTo(CategorySize::class, 'id_size', 'id');
+}
 }
 

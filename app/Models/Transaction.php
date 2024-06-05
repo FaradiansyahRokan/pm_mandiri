@@ -18,7 +18,9 @@ class Transaction extends Model
         'id_address',
         'notes',
         'total_price',
-        'status'
+        'status',
+        'ongkir',
+        'berat'
     ];
     public function transactionItems(): HasMany
     {
@@ -27,5 +29,9 @@ class Transaction extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'id_user', 'id');
+    }
+    public function address(): BelongsTo
+    {
+        return $this->belongsTo(Address::class, 'id_address', 'id');
     }
 }

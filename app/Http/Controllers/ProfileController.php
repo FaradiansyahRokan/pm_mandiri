@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\AddressRequest;
 use App\Http\Requests\ProfileRequest;
 use App\Models\Address;
+use App\Models\TokenWhatsapp;
 use App\Models\User;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
@@ -32,11 +33,15 @@ class ProfileController extends Controller
         $user->fullName = $user->first_name . ' ' . $user->last_name;
 
         $address = Address::where('id_user', $user->id)->first();
+
+        $token = TokenWhatsapp::first();
+        // dd($token);
         
         // $address->alamat = $address->city . ',' . $address->province . ' ' . $address->district . ' ' . $address->sub_district;
         return view('pages.users-profile', [
             'user' => $user,
-            'address' => $address
+            'address' => $address,
+            'token' => $token
         ]);
     
     }
@@ -108,8 +113,9 @@ class ProfileController extends Controller
                     'phone_number' => $profile_request['phone_number'],
                     'gender' => $profile_request['gender'],
                     'email' => $profile_request['email'],
+
                     // 'password' => bcrypt($profile_request['password']),
-                    'birth_date' => $profile_request['birth_date'],
+                    // 'birth_date' => $profile_request['birth_date'],
                 ]);
             } else {
                 $user->update([
@@ -120,7 +126,21 @@ class ProfileController extends Controller
                     'phone_number' => $profile_request['phone_number'],
                     'gender' => $profile_request['gender'],
                     'email' => $profile_request['email'],
-                    'birth_date' => $profile_request['birth_date'],
+                    // 'birth_date' => $profile_request['birth_date'],
+                ]);
+            };
+            $token = TokenWhatsapp::first();
+
+
+            if ($token){
+                $token->update([
+                    'token_wa' => $profile_request['token_wa'],
+                    'target_wa' => $profile_request['target_wa'],
+                ]);
+            } else {
+                TokenWhatsapp::create([
+                    'token_wa' => $profile_request['token_wa'],
+                    'target_wa' => $profile_request['target_wa'],
                 ]);
             }
 
@@ -130,7 +150,7 @@ class ProfileController extends Controller
                     'city' => $profile_request['city'],
                     'province' => $profile_request['province'],
                     'district' => $profile_request['district'],
-                    'sub-district' => $profile_request['sub_district'],
+                    'sub_district' => $profile_request['sub_district'],
                     'detail' => $profile_request['detail'],
                     'address_type' => $profile_request['address_type'],
                 ]);
@@ -140,7 +160,7 @@ class ProfileController extends Controller
                     'city' => $profile_request['city'],
                     'province' => $profile_request['province'],
                     'district' => $profile_request['district'],
-                    'sub-district' => $profile_request['sub_district'],
+                    'sub_district' => $profile_request['sub_district'],
                     'detail' => $profile_request['detail'],
                     'address_type' => $profile_request['address_type'],
                 ]);

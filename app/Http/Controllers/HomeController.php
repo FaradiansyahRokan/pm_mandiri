@@ -24,11 +24,9 @@ class HomeController extends Controller
     {
         $products = Product::all();
         $category = CategoryMenu::all();
-        $user = User::find(auth()->id()); 
+        $user = User::find(auth()->id());
+        
+        // dd($category);
         return view('index', compact('products', 'category' , 'user'));
     }
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
 }

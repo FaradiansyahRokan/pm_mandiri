@@ -98,41 +98,77 @@
     <aside id="sidebar" class="sidebar">
 
         <ul class="sidebar-nav" id="sidebar-nav">
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('dashboard') }}">
-                    <i class="bi bi-grid"></i>
-                    <span>Dashboard</span>
-                </a>
-            </li><!-- End Dashboard Nav -->
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-                    <i class="bi bi-menu-button-wide"></i><span>Product</span><i class="bi bi-chevron-down ms-auto"></i>
-                </a>
-                <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-                    <li>
-                        <a href="{{ route('product') }}">
-                            <i class="bi bi-circle"></i><span>Create</span>
-                        </a>
-                    </li>
-                </ul>
-            </li><!-- End Components Nav -->
-
-
+    
+          <li class="nav-item">
+            @if(Auth::user() && Auth::user()->role == 'admin')
+            <a class="nav-link " href="{{ route('dashboard')}}">
+              <i class="bi bi-grid"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+    
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('admin.transactions')}}">
+              <i class="bi bi-credit-card"></i>
+              <span>Transactions</span>
+            </a>
+          </li>
+    
+         <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-menu-button-wide"></i><span>Product</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="{{ route('product')}}">
+                        <i class="bi bi-circle"></i><span>Create Product</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('category')}}">
+                        <i class="bi bi-circle"></i><span>Add Category</span>
+                    </a>
+                </li>
+            </ul>
             <li class="nav-heading">Pages</li>
-
+    
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('profile') }}">
+                <i class="bi bi-person"></i>
+                <span>Profile</span>
+            </a>
+        </li><!-- End Profile Page Nav -->
+            @else
+    
             <li class="nav-item">
-                <a class="nav-link collapsed" href="users-profile.html">
-                    <i class="bi bi-person"></i>
-                    <span>Profile</span>
-                </a>
-            </li><!-- End Profile Page Nav -->
-
-
+              <a class="nav-link " href="{{ route('home')}}">
+                <i class="ri-handbag-line"></i>
+                <span>Home</span>
+              </a>
+            </li><!-- End Dashboard Nav -->
+            
+                  <li class="nav-heading">Pages</li>
+            
+                  <li class="nav-item">
+                    <a class="nav-link collapsed" href="{{ route('profile') }}">
+                        <i class="bi bi-person"></i>
+                        <span>Profile</span>
+                    </a>
+                </li><!-- End Profile Page Nav -->
+    
+        @endif
+    </li><!-- End Components Nav -->
+        
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="pages-login.html">
+              <i class="bi bi-box-arrow-in-right"></i>
+              <span>Login</span>
+            </a>
+          </li><!-- End Login Page Nav -->
+    
         </ul>
-
-    </aside><!-- End Sidebar-->
+    
+      </aside><!-- End Sidebar-->
 
 
     <main id="main" class="main">
@@ -180,7 +216,17 @@
                                             autocomplete="list_menu">
                                     </div>
                                 </div>
-
+                                <div class="row mb-3">
+                                    <label for="inputNumber" class="col-sm-2 col-form-label">Harga/Ukuran</label>
+                                    <div class="col-sm-10">
+                                        <input id="price" type="number"
+                                            class="form-control @error('price') is-invalid @enderror"
+                                            name="price"
+                                            value="{{ old('price') }}"
+                                            autocomplete="price"
+                                            >
+                                    </div>
+                                </div>
                                 <div class="row mb-3">
                                     <label for="inputText" class="col-sm-2 col-form-label">Ukuran</label>
                                     <div class="col-sm-10">
