@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('city')->nullable();
             $table->string('province')->nullable();
             $table->string('district')->nullable();
-            $table->string('sub-district')->nullable();
+            $table->string('sub_district')->nullable();
             $table->string('detail', 150)->nullable();
             $table->string('address_type')->nullable();
             $table->softDeletes();

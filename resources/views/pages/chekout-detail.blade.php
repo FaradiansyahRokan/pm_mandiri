@@ -72,66 +72,86 @@
                             <div class="alert alert-danger">{{ session('error') }}</div>
                         @endif
 
+
+
                         @if ($transaction->ongkir == null)
                             <h6>Tekan Request Ongkir Agar Dapat Melanjutkan Proses Pembelian</h6>
 
-                            <?php
-                            // Mendapatkan waktu request ongkir
-                            $requestTime = new DateTime($transaction->request_ongkir_time);
-                        
-                            // Mendapatkan waktu sekarang
-                            $currentTime = new DateTime();
-                        
-                            // Menghitung selisih waktu dalam detik
-                            $timeDiffSeconds = $currentTime->getTimestamp() - $requestTime->getTimestamp();
-                        
-                            // Menghitung sisa waktu yang tersisa sebelum 30 menit
-                            $remainingTimeSeconds = max(30 * 60 - $timeDiffSeconds, 0); // Pastikan waktu tidak negatif
-                        
-                            // Jika sisa waktu sudah habis, set tombol menjadi aktif
-                            $tombol = ($remainingTimeSeconds <= 0);
-                        
-                            // Fungsi untuk memformat waktu menjadi format "hh:mm:ss"
-                            function formatTime($seconds) {
-                                $hours = floor($seconds / 3600);
-                                $minutes = floor(($seconds % 3600) / 60);
-                                $seconds = $seconds % 60;
-                                return sprintf('%02d:%02d:%02d', $hours, $minutes, $seconds);
-                            }
-                            ?>
                             <form action="{{ route('checkout.requestOngkir') }}" method="POST" id="requestOngkirForm">
                                 @csrf
-                                <input type="text" name="transaction_id" id="transactionId" value="{{ $transaction->id }}" hidden>
-                                @if($tombol)
-                                    <button class="btn btn-success" id="requestOngkirBtn" type="submit">Request Ongkir</button>
-                                 @else
-                                 <button class="btn btn-success" id="requestOngkirBtn" type="submit" disabled>
-                                    <span id="countdownTimer">{{ formatTime($remainingTimeSeconds) }}</span>
-                                </button>
+                                <input type="text" name="transaction_id" id="transactionId"
+                                    value="{{ $transaction->id }}" hidden>
+                                @if ($tombol)
+                                    <button class="btn btn-success" id="requestOngkirBtn" type="submit">Request
+                                        Ongkir</button>
+                                @else
+                                    <button class="btn btn-success" id="requestOngkirBtn" type="submit" disabled>
+                                        <?php
+                                        $requestTime = new DateTime($transaction->request_ongkir_time);
+                                        
+                                        // Mendapatkan waktu sekarang
+                                        $currentTime = new DateTime();
+                                        
+                                        // Menghitung selisih waktu dalam detik
+                                        $timeDiffSeconds = $currentTime->getTimestamp() - $requestTime->getTimestamp();
+                                        $remainingTimeSeconds = max(30 * 60 - $timeDiffSeconds, 0);
+                                        $tombol = $remainingTimeSeconds <= 0;
+                                        function formatTime($seconds)
+                                        {
+                                            $hours = floor($seconds / 3600);
+                                            $minutes = floor(($seconds % 3600) / 60);
+                                            $seconds = $seconds % 60;
+                                            return sprintf('%02d:%02d:%02d', $hours, $minutes, $seconds);
+                                        }
+                                        // Pastikan waktu tidak negatif
+                                        ?>
+                                        <span id="countdownTimer">{{ formatTime($remainingTimeSeconds) }}</span>
+                                    </button>
                                 @endif
                             </form>
+
+                            <?php
+                            $requestTime = new DateTime($transaction->request_ongkir_time);
+                            
+                            // Mendapatkan waktu sekarang
+                            $currentTime = new DateTime();
+                            
+                            // Menghitung selisih waktu dalam detik
+                            $timeDiffSeconds = $currentTime->getTimestamp() - $requestTime->getTimestamp();
+                            $remainingTimeSeconds = max(30 * 60 - $timeDiffSeconds, 0);
+                            $tombol = $remainingTimeSeconds <= 0;
+                            // function formatTime($seconds)
+                            // {
+                            //     $hours = floor($seconds / 3600);
+                            //     $minutes = floor(($seconds % 3600) / 60);
+                            //     $seconds = $seconds % 60;
+                            //     return sprintf('%02d:%02d:%02d', $hours, $minutes, $seconds);
+                            // }
+                            // Pastikan waktu tidak negatif
+                            ?>
+
                             <script>
                                 document.addEventListener('DOMContentLoaded', function() {
                                     const countdownElement = document.getElementById('countdownTimer');
                                     let remainingTimeSeconds = {{ $remainingTimeSeconds }};
                                     const transactionId = '{{ $transaction->id }}';
-                            
+
                                     // Hapus dan buat ulang localStorage setiap kali halaman di-refresh
                                     localStorage.removeItem('endTime_' + transactionId);
-                            
+
                                     let endTime = new Date().getTime() + remainingTimeSeconds * 1000;
                                     localStorage.setItem('endTime_' + transactionId, endTime);
-                            
+
                                     function formatTime(seconds) {
                                         const hours = Math.floor(seconds / 3600);
                                         const minutes = Math.floor((seconds % 3600) / 60);
                                         const secondsLeft = seconds % 60;
                                         return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${secondsLeft.toString().padStart(2, '0')}`;
                                     }
-                            
+
                                     function updateRemainingTime() {
                                         remainingTimeSeconds--;
-                            
+
                                         if (remainingTimeSeconds <= 0) {
                                             clearInterval(timerInterval);
                                             localStorage.removeItem('endTime_' + transactionId);
@@ -140,18 +160,14 @@
                                             countdownElement.textContent = 'Request Ongkir';
                                             return;
                                         }
-                            
+
                                         countdownElement.textContent = formatTime(remainingTimeSeconds);
                                     }
-                            
+
                                     const timerInterval = setInterval(updateRemainingTime, 1000);
                                 });
                             </script>
-                            
-                            
-                            
-                            
-                            
+
                             <p>Mohon Tunggu Hingga Admin Online. Kami Akan Memberikan Receipt Setelah Admin Mengirimkan
                                 Total Harga</p>
                         @else

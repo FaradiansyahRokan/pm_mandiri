@@ -23,16 +23,15 @@ class ProfileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name' => 'required|max:125',
-        'last_name' => 'nullable|max:125',
-        'phone_number' => 'required|integer',
-        'gender' => 'nullable|in:male,female',
-        'email' => 'required|email',
-        'birth_date' => 'nullable|date',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'phone_number' => 'required|string|max:20',
+            'email' => 'required|email|max:255',
+            'password' => 'nullable|string|min:8|confirmed',
         'city' => 'nullable|string',
         'province' => 'nullable|string',
         'district' => 'nullable|string',
-        'sub-district' => 'nullable|string',
+        'sub_district' => 'nullable|string',
         'detail' => 'nullable|string|max:1000',
         'address_type' => 'nullable|string',
         'image_profile' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',

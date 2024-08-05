@@ -43,7 +43,7 @@
         </div><!-- End Logo -->
 
         <div class="search-bar">
-            <form class="search-form d-flex align-items-center" method="POST" action="#">
+            <form class="search-form d-flex align-items-center" method="GET" action="{{route('admin.transactions')}}">
                 <input type="text" name="query" placeholder="Search" title="Enter search keyword">
                 <button type="submit" title="Search"><i class="bi bi-search"></i></button>
             </form>
@@ -220,7 +220,7 @@
                             <td>
                                 <ul>
                                     @foreach($trans->transactionItems as $item)
-                                        <li>{{ $item->product->name_product }} ({{ $item->qty }})</li>
+                                        <li>{{ $item->name_product }} ({{ $item->qty }})</li>
                                     @endforeach
                                 </ul>
                             </td>

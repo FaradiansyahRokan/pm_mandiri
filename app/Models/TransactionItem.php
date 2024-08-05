@@ -28,4 +28,8 @@ class TransactionItem extends Model
     {
         return $this->belongsTo(Transaction::class, 'id_transaction');
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_user');
+    }
 }

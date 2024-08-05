@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TransactionRequest;
@@ -15,44 +16,59 @@ class AdminTransaction extends Controller
      * Display a listing of the resource.
      */
     public function detailIndex($id)
-{
-    $dataTransaction = Transaction::with('transactionItems.product', 'user', 'address')->findOrFail($id);
-    $user = User::find(auth()->id());
-    $address = Address::where('id_user', $user->id)->first();
-    $transactionItems = TransactionItem::where('id_transaction', $dataTransaction->id)->first();
-
-    $user->fullName = $user->first_name . ' ' . $user->last_name;
-
-    // Format the address as a string
-    $formattedAddress = $address ? "{$address->city}, {$address->province}, {$address->district}, {$address->detail}, {$address->address_type}" : 'Address not available';
-
-    return view('pages.detail-transaction', compact('dataTransaction', 'user', 'formattedAddress', 'transactionItems'));
-}
-
-public function add(Request $request, $id)
-{
-    $this->validate($request, [
-        'ongkir' => 'required',
-    ]);
-
-    // dd($request);
-
-    $transaction = Transaction::findOrFail($id);
-    $transaction->ongkir = $request->ongkir;
-    $transaction->total_price += $request->ongkir;
-    // $transaction->berat = $request->berat;
-    $transaction->save();
-
-    return redirect()->route('admin.transaction.detail', $id)->with('success', 'Ongkir added successfully!');
-}
-
-    public function showTransactions()
     {
-        $transactions = Transaction::with('transactionItems.product', 'user')->get();
+        $dataTransaction = Transaction::with('transactionItems.product', 'user', 'address')->findOrFail($id);
         $user = User::find(auth()->id());
         $address = Address::where('id_user', $user->id)->first();
+        $transactionItems = TransactionItem::where('id_transaction', $dataTransaction->id)->first();
+
+        $user->fullName = $user->first_name . ' ' . $user->last_name;
+
+        // Format the address as a string
+        $dataTransaction->formattedAddress = $dataTransaction->address ? "{$dataTransaction->address->city}, {$dataTransaction->address->province}, {$dataTransaction->address->district}, {$dataTransaction->address->detail}, {$dataTransaction->address->address_type}" : 'Address not available';
+
+        return view('pages.detail-transaction', compact('dataTransaction', 'user', 'transactionItems'));
+    }
+
+    public function add(Request $request, $id)
+    {
+        $this->validate($request, [
+            'ongkir' => 'required',
+        ]);
+
+        // dd($request);
+
+        $transaction = Transaction::findOrFail($id);
+        $transaction->ongkir = $request->ongkir;
+        $transaction->total_price += $request->ongkir;
+        // $transaction->berat = $request->berat;
+        $transaction->save();
+
+        return redirect()->route('admin.transaction.detail', $id)->with('success', 'Ongkir added successfully!');
+    }
+
+    public function showTransactions(Request $request)
+    {
+        $query = $request->input('query');
+        
+        $transactionsQuery = Transaction::with('transactionItems.product', 'user')->orderBy('created_at', 'desc');
+    
+        if ($query) {
+            $transactionsQuery->where(function ($q) use ($query) {
+                $q->where('id', 'like', "%{$query}%")
+                  ->orWhereHas('user', function ($q) use ($query) {
+                      $q->where('first_name', 'like', "%{$query}%");
+                  });
+            });
+        }
+    
+        $transactions = $transactionsQuery->get();
+        $user = User::find(auth()->id());
+        $address = Address::where('id_user', $user->id)->first();
+    
         return view('pages.admin-transaction', compact('transactions', 'address'));
     }
+    
 
     public function updateTransactionStatus(Request $request, $transactionId)
     {
@@ -87,8 +103,8 @@ public function add(Request $request, $id)
         $dataTransaction = Transaction::with('transactionItems.product', 'user', 'address')->findOrFail($id);
         $transactionItems = TransactionItem::where('id_transaction', $dataTransaction->id)->first();
 
-        $pdf = Pdf::loadView('pages.receipt-admin', compact('transaction', 'address', 'user' , 'dataTransaction' , 'transactionItems'));
+        $pdf = Pdf::loadView('pages.receipt-admin', compact('transaction', 'address', 'user', 'dataTransaction', 'transactionItems'));
 
-        return $pdf->download('transaction'.$transaction->id.'.pdf');
+        return $pdf->download('transaction' . $transaction->id . '.pdf');
     }
 };

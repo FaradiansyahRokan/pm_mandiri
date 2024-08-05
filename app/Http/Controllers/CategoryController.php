@@ -14,7 +14,6 @@ class CategoryController extends Controller
      */
     public function index()
     {
-    
     }
 
     /**
@@ -30,20 +29,39 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $dataCategoryFlavour = [
-            'list_flavour' => $request->input('list_flavour'),
-        ];
-        $dataCategoryMenus = [
-            'list_menu' => $request->input('list_menu'),
-        ];
-        $dataCategorySizes = [
-            'list_size' => $request->input('list_size'),
-            'price' => $request->input('price'),
-        ];
+        // Inisialisasi array data kosong
+        $dataCategoryFlavour = [];
+        $dataCategoryMenus = [];
+        $dataCategorySizes = [];
 
-        CategoryFlavour::create($dataCategoryFlavour);
-        CategoryMenu::create($dataCategoryMenus);
-        CategorySize::create($dataCategorySizes);
+        // Periksa dan tambahkan data ke $dataCategoryFlavour jika tidak kosong
+        if ($request->filled('list_flavour')) {
+            $dataCategoryFlavour['list_flavour'] = $request->input('list_flavour');
+        }
+
+        // Periksa dan tambahkan data ke $dataCategoryMenus jika tidak kosong
+        if ($request->filled('list_menu')) {
+            $dataCategoryMenus['list_menu'] = $request->input('list_menu');
+        }
+
+        // Periksa dan tambahkan data ke $dataCategorySizes jika tidak kosong
+        if ($request->filled('list_size')) {
+            $dataCategorySizes['list_size'] = $request->input('list_size');
+        }
+        if ($request->filled('price')) {
+            $dataCategorySizes['price'] = $request->input('price');
+        }
+
+        // Hanya buat entri baru jika ada data untuk disimpan
+        if (!empty($dataCategoryFlavour)) {
+            CategoryFlavour::create($dataCategoryFlavour);
+        }
+        if (!empty($dataCategoryMenus)) {
+            CategoryMenu::create($dataCategoryMenus);
+        }
+        if (!empty($dataCategorySizes)) {
+            CategorySize::create($dataCategorySizes);
+        }
 
         return redirect()->route('dashboard');
     }
@@ -69,7 +87,6 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-
     }
 
     /*=

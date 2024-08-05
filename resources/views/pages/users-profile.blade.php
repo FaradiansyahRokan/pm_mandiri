@@ -58,10 +58,6 @@
               <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Edit Profile</button>
             </li>
 
-            <li class="nav-item">
-              <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Change Password</button>
-            </li>
-
           </ul>
           <div class="tab-content pt-2">
 
@@ -127,17 +123,6 @@
                                             value="{{ old('image_profile') }}" autocomplete="image_profile" type="file">
                     </div>
                   </div>
-
-                  {{-- <div class="col-md-8 col-lg-9">
-                    <img src="{{ $user->image_profile ? asset($user->image_profile) : 'https://ui-avatars.com/api/?name=' . Auth::user()->first_name }}" class="img-thumbnail bulat" alt="Profile Image">
-                    <div class="pt-2">
-                      <input id="image_profile" class="form-control @error('image_profile') is-invalid @enderror" name="image_profile" type="file" style="display: none;" onchange="this.form.submit()">
-                      <a href="#" class="btn btn-primary btn-sm" title="Upload new profile image" onclick="document.getElementById('image_profile').click();">
-                        <i class="bi bi-upload"></i>
-                      </a>
-                      <a href="#" class="btn btn-danger btn-sm" title="Remove my profile image"><i class="bi bi-trash"></i></a>
-                    </div>
-                  </div> --}}
                 </div>
 
                 <div class="row mb-3">
@@ -168,11 +153,7 @@
                 <div class="row mb-3">
                   <label for="city" class="col-md-4 col-lg-3 col-form-label">City</label>
                   <div class="col-md-8 col-lg-9">
-                    {{-- @if($address->city === null || $address === null) --}}
                     <input name="city" type="text" class="form-control" id="city" value="{{ $address ? $address->city : '' }}">
-                    {{-- @else
-                    <input name="city" type="text" class="form-control" id="city" value="{{ $address->city }}">
-                    @endif --}}
                   </div>
                 </div>
 
@@ -201,11 +182,7 @@
                 <div class="row mb-3">
                   <label for="sub_district" class="col-md-4 col-lg-3 col-form-label">Sub District</label>
                   <div class="col-md-8 col-lg-9">
-                    {{-- @if($address->sub_district === null || $address === null) --}}
                     <input name="sub_district" type="text" class="form-control" id="sub_district" value="{{ $address ? $address->sub_district : '' }}">
-                    {{-- @else
-                    <input name="sub_district" type="text" class="form-control" id="sub_district" value="{{ $address->sub_district }}">
-                    @endif --}}
                   </div>
                 </div>
 
@@ -251,48 +228,28 @@
                   <label for="target_wa" class="col-md-4 col-lg-3 col-form-label">Target Whatsapp</label>
                   <div class="col-md-8 col-lg-9">
                     <input name="target_wa" type="text" class="form-control" id="target_wa" value="{{ $token ? $token->target_wa : '' }}">
-
                   </div>
                 </div>
                 @endif
+
+                <div class="row mb-3">
+                  <label for="password" class="col-md-4 col-lg-3 col-form-label">Password</label>
+                  <div class="col-md-8 col-lg-9">
+                      <input name="password" type="password" class="form-control" id="password">
+                  </div>
+              </div>
+              <div class="row mb-3">
+                  <label for="password_confirmation" class="col-md-4 col-lg-3 col-form-label">Confirm Password</label>
+                  <div class="col-md-8 col-lg-9">
+                      <input name="password_confirmation" type="password" class="form-control" id="password_confirmation">
+                  </div>
+              </div>
 
                 <div class="text-center">
                   <button type="submit" class="btn btn-primary">Save Changes</button>
                 </div>
                 {{-- <input type="hidden" name="_token" value="{{ csrf_token() }}" /> --}}
               </form><!-- End Profile Edit Form -->
-
-            </div>
-
-            <div class="tab-pane fade pt-3" id="profile-change-password">
-              <!-- Change Password Form -->
-              <form>
-
-                <div class="row mb-3">
-                  <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current Password</label>
-                  <div class="col-md-8 col-lg-9">
-                    <input name="password" type="password" class="form-control" id="currentPassword">
-                  </div>
-                </div>
-
-                <div class="row mb-3">
-                  <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">New Password</label>
-                  <div class="col-md-8 col-lg-9">
-                    <input name="newpassword" type="password" class="form-control" id="newPassword">
-                  </div>
-                </div>
-
-                <div class="row mb-3">
-                  <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New Password</label>
-                  <div class="col-md-8 col-lg-9">
-                    <input name="renewpassword" type="password" class="form-control" id="renewPassword">
-                  </div>
-                </div>
-
-                <div class="text-center">
-                  <button type="submit" class="btn btn-primary">Change Password</button>
-                </div>
-              </form><!-- End Change Password Form -->
 
             </div>
 

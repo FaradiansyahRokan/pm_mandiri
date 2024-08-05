@@ -36,14 +36,13 @@ class ProfileController extends Controller
 
         $token = TokenWhatsapp::first();
         // dd($token);
-        
+
         // $address->alamat = $address->city . ',' . $address->province . ' ' . $address->district . ' ' . $address->sub_district;
         return view('pages.users-profile', [
             'user' => $user,
             'address' => $address,
             'token' => $token
         ]);
-    
     }
 
     /**
@@ -80,7 +79,7 @@ class ProfileController extends Controller
     {
         // $user = User::find(auth()->id());
         // $user->fullName = $user->first_name . ' ' . $user->last_name;
-        
+
         // $address = Address::where('id_user', $user->id)->first();
 
         // return view('', [
@@ -94,17 +93,15 @@ class ProfileController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $profile_request, $id)
+    public function update(ProfileRequest $profile_request, $id)
     {
-        // $id = auth()->id();
         $user = User::find($id);
-        // $addresses = Address::all();
         $address = Address::where('id_user', $id)->first();
-        // dd($id);   
+        // dd($profile_request);   
 
         if ($user) {
             // $validated = $profile_request->validated();
-        
+
             if (!empty($profile_request['password'])) {
                 $user->update([
                     // 'id_user' => $user->id,
@@ -114,8 +111,7 @@ class ProfileController extends Controller
                     'gender' => $profile_request['gender'],
                     'email' => $profile_request['email'],
 
-                    // 'password' => bcrypt($profile_request['password']),
-                    // 'birth_date' => $profile_request['birth_date'],
+                    'password' => bcrypt($profile_request['password']),
                 ]);
             } else {
                 $user->update([
@@ -126,25 +122,25 @@ class ProfileController extends Controller
                     'phone_number' => $profile_request['phone_number'],
                     'gender' => $profile_request['gender'],
                     'email' => $profile_request['email'],
-                    // 'birth_date' => $profile_request['birth_date'],
                 ]);
             };
             $token = TokenWhatsapp::first();
 
-
-            if ($token){
-                $token->update([
-                    'token_wa' => $profile_request['token_wa'],
-                    'target_wa' => $profile_request['target_wa'],
-                ]);
-            } else {
-                TokenWhatsapp::create([
-                    'token_wa' => $profile_request['token_wa'],
-                    'target_wa' => $profile_request['target_wa'],
-                ]);
+            if ($user->role == 'admin') {
+                if ($token) {
+                    $token->update([
+                        'token_wa' => $profile_request['token_wa'],
+                        'target_wa' => $profile_request['target_wa'],
+                    ]);
+                } else {
+                    TokenWhatsapp::create([
+                        'token_wa' => $profile_request['token_wa'],
+                        'target_wa' => $profile_request['target_wa'],
+                    ]);
+                }
             }
 
-            if(!$address) { 
+            if (!$address) {
                 Address::create([
                     'id_user' => $id,
                     'city' => $profile_request['city'],
@@ -166,13 +162,13 @@ class ProfileController extends Controller
                 ]);
             }
 
-            
+
 
             if ($profile_request->hasFile('image_profile')) {
                 if ($user->image_profile) {
                     Storage::delete($user->image_profile);
                 }
-            
+
                 $imageName = time() . '.' . $profile_request->file('image_profile')->getClientOriginalExtension();
                 $profile_request->file('image_profile')->storeAs('public/gallery', $imageName);
                 $user->update([
